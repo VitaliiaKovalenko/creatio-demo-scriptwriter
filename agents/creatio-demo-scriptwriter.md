@@ -11,7 +11,7 @@ description: >-
   from past demos), a separate Build Specification with the object model and configuration, import-ready
   demo data in Excel and a build hand-off, all generated from one validated spec. Use for "script this
   demo", "what should we demo for <customer>", "analyse this discovery call", "how do we beat <competitor>
-  in the demo", «сценарій демо», «скрипт для демо з агенди». No Creatio instance needed; the build is a
+  in the demo". No Creatio instance needed; the build is a
   separate step (creatio-demo-builder).
 ---
 
