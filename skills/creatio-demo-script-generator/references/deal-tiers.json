@@ -1,0 +1,81 @@
+{
+  "_about": "Deal-size tiers: the deal ARR (USD) decides how much custom configuration and how many improvement ideas a demo gets. Edit the numbers here — validate_spec.py, build_outputs.py and the skill read this file. Bounds: min inclusive, max exclusive. null = no cap.",
+  "tiers": [
+    {
+      "key": "ootb",
+      "label": "OOTB — keep it simple",
+      "min_arr": 0,
+      "max_arr": 50000,
+      "intent": "Show the product as it is. Stock objects, stock pages, stock lookups; a few new fields at most. No custom objects, no designer-built processes, no flow redesign — quick wins only.",
+      "budget": {
+        "new_objects": 0,
+        "new_columns": 8,
+        "new_lookups": 3,
+        "processes": 3,
+        "designer_processes": 0,
+        "ai_actions": 1,
+        "integrations": 1,
+        "dcm": 1
+      },
+      "proposals": {"min": 4, "max": 6, "max_effort": "S"},
+      "data_volume": "Showcase-light: hero records + 5–15 per business object"
+    },
+    {
+      "key": "medium",
+      "label": "Medium impact",
+      "min_arr": 50000,
+      "max_arr": 100000,
+      "intent": "Mostly stock, tailored where the customer's story needs it: a couple of custom objects, simple processes, one or two AI moments. Moderate flow improvements.",
+      "budget": {
+        "new_objects": 2,
+        "new_columns": 20,
+        "new_lookups": 6,
+        "processes": 6,
+        "designer_processes": 1,
+        "ai_actions": 2,
+        "integrations": 2,
+        "dcm": 1
+      },
+      "proposals": {"min": 4, "max": 8, "max_effort": "M"},
+      "data_volume": "Showcase: hero records + 10–30 per business object"
+    },
+    {
+      "key": "high",
+      "label": "High impact",
+      "min_arr": 100000,
+      "max_arr": 500000,
+      "intent": "Tailored demo: custom objects where they carry the story, richer automation, several AI moments, simulated integrations, competitive differentiators built in. Suggest flow improvements actively.",
+      "budget": {
+        "new_objects": 5,
+        "new_columns": 40,
+        "new_lookups": 12,
+        "processes": 12,
+        "designer_processes": 4,
+        "ai_actions": 4,
+        "integrations": 4,
+        "dcm": 2
+      },
+      "proposals": {"min": 6, "max": 10, "max_effort": "L"},
+      "data_volume": "Showcase+: hero records + 20–60 per business object"
+    },
+    {
+      "key": "extreme",
+      "label": "Extremely high impact",
+      "min_arr": 500000,
+      "max_arr": null,
+      "intent": "Strategic deal: build what makes the customer's future process visible — custom apps and objects, end-to-end automation, AI agents, several personas, integrations simulated in depth. Re-think the flow, not only polish it; include at least one flow-redesign proposal.",
+      "budget": {
+        "new_objects": null,
+        "new_columns": null,
+        "new_lookups": null,
+        "processes": null,
+        "designer_processes": null,
+        "ai_actions": null,
+        "integrations": null,
+        "dcm": null
+      },
+      "proposals": {"min": 8, "max": 12, "max_effort": "L"},
+      "data_volume": "Rich: hero records + 50–200 per business object"
+    }
+  ]
+}

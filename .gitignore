@@ -1,0 +1,17 @@
+# Maintainer-only: holds the sanitization rules (they name the original sources) — never published
+sync_from_local.py
+
+# Generated demo packages and renders
+*_demo_script/
+_render/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.cache.json
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/

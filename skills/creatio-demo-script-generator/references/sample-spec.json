@@ -1,0 +1,1469 @@
+{
+ "meta": {
+  "client": "Brightline Facility Services",
+  "title": "Demo Script",
+  "version": "v1",
+  "date": "2026-10-15",
+  "industry": "Facility management",
+  "finserv": false,
+  "prefix": "Usr",
+  "language": "en",
+  "region": "US",
+  "currency": "USD",
+  "duration_min": 45,
+  "demo_user": "John Best",
+  "products": [
+   "Service Creatio",
+   "Creatio.ai"
+  ],
+  "integrations": [
+   "Customer portal (simulated)"
+  ],
+  "instance": {
+   "name": "brightline-fs-demo",
+   "url": "https://brightline-fs-demo.creatio.com",
+   "mode": "copy",
+   "reference_demo": "Golden Service instance",
+   "previous_demos": "none for this customer"
+  },
+  "website": "https://www.brightline-demo.com",
+  "key_products": [
+   "Preventive maintenance contracts",
+   "On-demand repairs",
+   "Facility audits"
+  ],
+  "marketplace": [],
+  "build_budget_h": 12,
+  "walkthrough": "To record: 3-minute screen walkthrough of UC1 by the consultant before the SE hand-over",
+  "deal": {
+   "arr_usd": 80000,
+   "source": "consultant (intake form)"
+  }
+ },
+ "brief": {
+  "summary": "Brightline runs maintenance for 140 commercial buildings and loses SLA penalties because requests arrive by phone and email and nobody sees the backlog. They asked to see one request travel from the tenant to a closed work order, and what the manager sees on Monday morning.",
+  "pains": [
+   {
+    "id": "P1",
+    "text": "Requests arrive by phone and email and get lost; no single queue.",
+    "src": "S1"
+   },
+   {
+    "id": "P2",
+    "text": "Dispatchers assign technicians by memory, not by skill or location.",
+    "src": "S2"
+   },
+   {
+    "id": "P3",
+    "text": "Managers learn about SLA breaches from the penalty invoice.",
+    "src": "S1"
+   }
+  ],
+  "goals": [
+   {
+    "id": "G1",
+    "text": "Cut SLA penalties by half within a year.",
+    "src": "S1"
+   }
+  ],
+  "agenda": [
+   {
+    "id": "A1",
+    "text": "Intake of a maintenance request",
+    "src": "S3",
+    "covered_by": [
+     "UC1"
+    ]
+   },
+   {
+    "id": "A2",
+    "text": "Dispatching and field execution",
+    "src": "S3",
+    "covered_by": [
+     "UC1"
+    ]
+   },
+   {
+    "id": "A3",
+    "text": "SLA monitoring for management",
+    "src": "S3",
+    "covered_by": [
+     "UC2"
+    ]
+   },
+   {
+    "id": "A4",
+    "text": "Integration with the ERP invoicing",
+    "src": "S3",
+    "covered_by": [],
+    "note": "Out of scope for this demo: named in the hand-over as a follow-up conversation (Q2)."
+   }
+  ],
+  "vocabulary": [
+   {
+    "client": "Work order",
+    "creatio": "Case with Category \"Work order\""
+   },
+   {
+    "client": "Site",
+    "creatio": "Account (Type \"Site\")"
+   }
+  ],
+  "key_numbers": [
+   {
+    "text": "140 buildings under contract",
+    "src": "S1"
+   },
+   {
+    "text": "4-hour SLA on critical requests",
+    "src": "S2"
+   }
+  ],
+  "demo_goal": "Brightline loses SLA penalties because requests get lost between phone, email and dispatchers. At the end the audience sees one portal request become a closed work order without a phone call, and the manager spotting the outlier site on Monday before the penalty invoice arrives.",
+  "focus": "Brightline's full process runs from contract setup to invoicing. The demo covers intake, dispatch, field resolution and SLA monitoring; contract setup and ERP invoicing stay out (see Out of scope)."
+ },
+ "use_cases": [
+  {
+   "id": "UC1",
+   "name": "Request to closed work order",
+   "agenda": [
+    "A1",
+    "A2"
+   ],
+   "pains": [
+    "P1",
+    "P2"
+   ],
+   "persona": "Service dispatcher",
+   "entry_points": [
+    "portal",
+    "web"
+   ],
+   "flow_line": "Tenant reports a leak on the portal → work order created with SLA → dispatcher assigns the right technician → technician resolves it on site → tenant sees it closed",
+   "summary": "One request goes end to end without a phone call. It proves the single queue (P1) and skill-based assignment (P2).",
+   "items": [
+    {
+     "bubble": "Today a tenant at Harbor Point notices water under the sink in the third-floor kitchen. Instead of calling, they open the portal. Watch where that request lands."
+    },
+    {
+     "step": 1,
+     "text": "Customer portal → **New request** → Category = **\"Plumbing\"**, Priority = **\"Critical\"**, description *\"Water leak under kitchen sink, 3rd floor\"* → Save → confirmation **WO-1042** shown"
+    },
+    {
+     "step": 2,
+     "text": "**Cases** list page → folder **Open work orders** → **WO-1042** on top, **SLA due** in 4 hours *(calculated by the service contract)*"
+    },
+    {
+     "step": 3,
+     "text": "Open **WO-1042** → progress bar on stage **\"New\"** → **Site** = **Harbor Point Tower** *(linked from the portal user's account)*"
+    },
+    {
+     "bubble": "The dispatcher does not guess who goes. The system already knows who is certified for plumbing and who is closest."
+    },
+    {
+     "step": 4,
+     "text": "Field **Assigned technician** → list shows **Marco Diaz** first *(filtered by the rule: skill \"Plumbing\", region \"Downtown\")* → select → stage moves to **\"Assigned\"**"
+    },
+    {
+     "step": 5,
+     "text": "Creatio Mobile, **Marco Diaz**'s view → **My work orders** → **WO-1042** → **Start work** → stage **\"In progress\"**, **Arrived at** filled *(current time)*"
+    },
+    {
+     "step": 6,
+     "text": "Tab **Resolution** → **Root cause** = **\"Worn valve seal\"** → **Complete** → stage **\"Resolved\"** → email **N-1** to tenant *(sent by the process)*"
+    },
+    {
+     "bubble": "From the tenant's side, the loop closes on its own: no follow-up call, and the response time is on record."
+    },
+    {
+     "step": 7,
+     "text": "Customer portal → **My requests** → **WO-1042** status **\"Resolved\"**, **Resolved in** = 2 h 10 min *(calculated)*"
+    }
+   ],
+   "priority": "must",
+   "entry_point": "Customer portal (tenant) → Cases list page in the Service workplace",
+   "value_message": "Instead of a tenant phoning a dispatcher who assigns whoever answers, the request lands in one queue with its SLA and the right certified technician pre-filtered, which means fewer lost requests and fewer penalties."
+  },
+  {
+   "id": "UC2",
+   "name": "Monday SLA review",
+   "agenda": [
+    "A3"
+   ],
+   "pains": [
+    "P3"
+   ],
+   "persona": "Service manager",
+   "entry_points": [
+    "web"
+   ],
+   "flow_line": "Manager opens the service home page → sees SLA risk by site → drills into a breach → reassigns with one action",
+   "summary": "The manager learns about breaches before the invoice does. It proves P3 with live numbers seeded across six weeks.",
+   "items": [
+    {
+     "bubble": "Monday, nine o'clock. The service manager does not ask for a report; the home page is the report."
+    },
+    {
+     "step": 1,
+     "text": "**Service** home page → metric **Open work orders** = 38, metric **At SLA risk** = 5 *(work orders due within 2 hours)*"
+    },
+    {
+     "step": 2,
+     "text": "Chart **SLA compliance by site** → bar **Riverside Plaza** at 71% → drill down → list of its breached work orders"
+    },
+    {
+     "bubble": "One site is clearly the outlier. Instead of an email chain, the manager acts from where they are."
+    },
+    {
+     "step": 3,
+     "text": "Open **WO-1017** → **Escalate** → **Escalation reason** = **\"Technician unavailable\"** → stage **\"Escalated\"** → task for **Service dispatcher** role *(created by the process)*"
+    },
+    {
+     "step": 4,
+     "text": "Creatio.ai panel → *\"Summarize SLA risks for Riverside Plaza this week\"* → summary with 3 work orders and a suggested action *(AI skill \"SLA risk summary\")*"
+    }
+   ],
+   "priority": "should",
+   "entry_point": "Service home page, Service workplace",
+   "value_message": "Instead of learning about breaches from the penalty invoice, the manager sees SLA risk by site every Monday and escalates in one action, which means penalties are prevented, not paid."
+  }
+ ],
+ "model": {
+  "objects": [
+   {
+    "code": "Case",
+    "caption": "Case",
+    "status": "extended",
+    "section": "Cases",
+    "display": "Number",
+    "purpose": "The work order. OOTB Case with Category \"Work order\" — no parallel object.",
+    "steps": [
+     "UC1.1-7",
+     "UC2.2-3"
+    ],
+    "columns": [
+     {
+      "code": "Number",
+      "caption": "Number",
+      "type": "Text",
+      "status": "existing",
+      "required": true,
+      "steps": [
+       "UC1.1"
+      ]
+     },
+     {
+      "code": "Subject",
+      "caption": "Subject",
+      "type": "Text",
+      "status": "existing",
+      "steps": [
+       "UC1.1"
+      ]
+     },
+     {
+      "code": "Category",
+      "caption": "Category",
+      "type": "Lookup",
+      "ref": "CaseCategory",
+      "status": "existing",
+      "steps": [
+       "UC1.1"
+      ]
+     },
+     {
+      "code": "Priority",
+      "caption": "Priority",
+      "type": "Lookup",
+      "ref": "CasePriority",
+      "status": "existing",
+      "steps": [
+       "UC1.1"
+      ]
+     },
+     {
+      "code": "Account",
+      "caption": "Site",
+      "type": "Lookup",
+      "ref": "Account",
+      "status": "existing",
+      "steps": [
+       "UC1.3"
+      ]
+     },
+     {
+      "code": "UsrStage",
+      "caption": "Stage",
+      "type": "Lookup",
+      "ref": "UsrWorkOrderStage",
+      "status": "new",
+      "required": true,
+      "steps": [
+       "UC1.3-6",
+       "UC2.3"
+      ],
+      "note": "Stage and Status stay separate columns"
+     },
+     {
+      "code": "UsrTechnician",
+      "caption": "Assigned technician",
+      "type": "Lookup",
+      "ref": "Contact",
+      "status": "new",
+      "steps": [
+       "UC1.4"
+      ]
+     },
+     {
+      "code": "UsrSlaDue",
+      "caption": "SLA due",
+      "type": "Date/Time",
+      "status": "new",
+      "steps": [
+       "UC1.2",
+       "UC2.1"
+      ]
+     },
+     {
+      "code": "UsrArrivedAt",
+      "caption": "Arrived at",
+      "type": "Date/Time",
+      "status": "new",
+      "steps": [
+       "UC1.5"
+      ]
+     },
+     {
+      "code": "UsrRootCause",
+      "caption": "Root cause",
+      "type": "Lookup",
+      "ref": "UsrRootCause",
+      "status": "new",
+      "steps": [
+       "UC1.6"
+      ]
+     },
+     {
+      "code": "UsrResolutionMinutes",
+      "caption": "Resolved in (min)",
+      "type": "Integer",
+      "status": "new",
+      "steps": [
+       "UC1.7"
+      ]
+     },
+     {
+      "code": "UsrSlaMet",
+      "caption": "SLA met",
+      "type": "Boolean",
+      "status": "new",
+      "steps": [
+       "UC2.2"
+      ]
+     },
+     {
+      "code": "UsrEscalationReason",
+      "caption": "Escalation reason",
+      "type": "Lookup",
+      "ref": "UsrEscalationReason",
+      "status": "new",
+      "steps": [
+       "UC2.3"
+      ]
+     },
+     {
+      "code": "RegisteredOn",
+      "caption": "Registered on",
+      "type": "Date/Time",
+      "status": "existing",
+      "steps": [
+       "UC2.1"
+      ]
+     }
+    ],
+    "depth": "section with pages"
+   },
+   {
+    "code": "Account",
+    "caption": "Account",
+    "status": "extended",
+    "section": "Accounts",
+    "purpose": "Sites (buildings) under contract, typed as Site.",
+    "steps": [
+     "UC1.3",
+     "UC2.2"
+    ],
+    "columns": [
+     {
+      "code": "Name",
+      "caption": "Name",
+      "type": "Text",
+      "status": "existing",
+      "required": true,
+      "steps": [
+       "UC1.3"
+      ]
+     },
+     {
+      "code": "Type",
+      "caption": "Type",
+      "type": "Lookup",
+      "ref": "AccountType",
+      "status": "existing",
+      "steps": [
+       "UC1.3"
+      ]
+     },
+     {
+      "code": "UsrRegion",
+      "caption": "Service region",
+      "type": "Lookup",
+      "ref": "UsrServiceRegion",
+      "status": "new",
+      "steps": [
+       "UC1.4"
+      ]
+     },
+     {
+      "code": "City",
+      "caption": "City",
+      "type": "Lookup",
+      "ref": "City",
+      "status": "existing",
+      "steps": [
+       "UC1.3"
+      ]
+     }
+    ],
+    "depth": "section with pages"
+   },
+   {
+    "code": "Contact",
+    "caption": "Contact",
+    "status": "extended",
+    "section": "Contacts",
+    "purpose": "Technicians and tenants. Technicians carry a skill and a region for the assignment filter.",
+    "steps": [
+     "UC1.4-5"
+    ],
+    "columns": [
+     {
+      "code": "Name",
+      "caption": "Full name",
+      "type": "Text",
+      "status": "existing",
+      "required": true,
+      "steps": [
+       "UC1.4"
+      ]
+     },
+     {
+      "code": "Type",
+      "caption": "Type",
+      "type": "Lookup",
+      "ref": "ContactType",
+      "status": "existing",
+      "steps": [
+       "UC1.4"
+      ]
+     },
+     {
+      "code": "UsrSkill",
+      "caption": "Skill",
+      "type": "Lookup",
+      "ref": "UsrTechnicianSkill",
+      "status": "new",
+      "steps": [
+       "UC1.4"
+      ]
+     },
+     {
+      "code": "UsrRegion",
+      "caption": "Service region",
+      "type": "Lookup",
+      "ref": "UsrServiceRegion",
+      "status": "new",
+      "steps": [
+       "UC1.4"
+      ]
+     },
+     {
+      "code": "Email",
+      "caption": "Email",
+      "type": "Email",
+      "status": "existing",
+      "steps": [
+       "UC1.6"
+      ]
+     }
+    ],
+    "depth": "section with pages"
+   },
+   {
+    "code": "City",
+    "caption": "City",
+    "status": "existing",
+    "purpose": "OOTB lookup object.",
+    "steps": [
+     "UC1.3"
+    ],
+    "columns": [
+     {
+      "code": "Name",
+      "caption": "Name",
+      "type": "Text",
+      "status": "existing",
+      "steps": [
+       "UC1.3"
+      ]
+     }
+    ],
+    "depth": "lookup only"
+   }
+  ],
+  "lookups": [
+   {
+    "code": "CaseCategory",
+    "caption": "Case category",
+    "status": "extended",
+    "values": [
+     "Work order"
+    ],
+    "steps": [
+     "UC1.1"
+    ],
+    "new_values": [
+     "Work order"
+    ]
+   },
+   {
+    "code": "CasePriority",
+    "caption": "Case priority",
+    "status": "existing",
+    "values": [
+     "Critical",
+     "High",
+     "Medium",
+     "Low"
+    ],
+    "steps": [
+     "UC1.1"
+    ]
+   },
+   {
+    "code": "AccountType",
+    "caption": "Account type",
+    "status": "extended",
+    "values": [
+     "Site",
+     "Customer"
+    ],
+    "steps": [
+     "UC1.3"
+    ],
+    "new_values": [
+     "Site"
+    ]
+   },
+   {
+    "code": "ContactType",
+    "caption": "Contact type",
+    "status": "extended",
+    "values": [
+     "Technician",
+     "Tenant",
+     "Employee"
+    ],
+    "steps": [
+     "UC1.4"
+    ],
+    "new_values": [
+     "Technician",
+     "Tenant"
+    ]
+   },
+   {
+    "code": "UsrWorkOrderStage",
+    "caption": "Work order stage",
+    "status": "new",
+    "values": [
+     "New",
+     "Assigned",
+     "In progress",
+     "Resolved",
+     "Escalated",
+     "Closed"
+    ],
+    "colors": {
+     "New": "#1C6B8C",
+     "Escalated": "#C9861A",
+     "Resolved": "#0E8F86"
+    },
+    "steps": [
+     "UC1.3-6"
+    ]
+   },
+   {
+    "code": "UsrRootCause",
+    "caption": "Root cause",
+    "status": "new",
+    "values": [
+     "Worn valve seal",
+     "Blocked drain",
+     "Faulty breaker",
+     "Thermostat failure",
+     "Wear and tear"
+    ],
+    "steps": [
+     "UC1.6"
+    ]
+   },
+   {
+    "code": "UsrEscalationReason",
+    "caption": "Escalation reason",
+    "status": "new",
+    "values": [
+     "Technician unavailable",
+     "Parts on order",
+     "Access denied by tenant"
+    ],
+    "steps": [
+     "UC2.3"
+    ]
+   },
+   {
+    "code": "UsrServiceRegion",
+    "caption": "Service region",
+    "status": "new",
+    "values": [
+     "Downtown",
+     "Riverside",
+     "North Hills"
+    ],
+    "steps": [
+     "UC1.4"
+    ]
+   },
+   {
+    "code": "UsrTechnicianSkill",
+    "caption": "Technician skill",
+    "status": "new",
+    "values": [
+     "Plumbing",
+     "Electrical",
+     "HVAC",
+     "General maintenance"
+    ],
+    "steps": [
+     "UC1.4"
+    ]
+   }
+  ],
+  "dashboards": [
+   {
+    "name": "Service home page",
+    "location": "Home page (Service workplace)",
+    "steps": [
+     "UC2.1-2"
+    ],
+    "widgets": [
+     {
+      "name": "Open work orders",
+      "type": "Metric",
+      "source": "Count of Case where Category = Work order and Stage not in (Resolved, Closed)",
+      "example": "38",
+      "seed": "38 open"
+     },
+     {
+      "name": "At SLA risk",
+      "type": "Metric",
+      "source": "Count of open work orders where SLA due < now + 2 h",
+      "example": "5",
+      "seed": "5 due < 2 h"
+     },
+     {
+      "name": "SLA compliance by site",
+      "type": "Chart (Bar)",
+      "source": "Share of Case where SLA met = true, grouped by Site, last 6 weeks",
+      "example": "Riverside Plaza 71%",
+      "seed": "6 weeks × 3 sites"
+     }
+    ]
+   }
+  ],
+  "dcm": [
+   {
+    "name": "Work order",
+    "object": "Case",
+    "stage_column": "UsrStage",
+    "steps": [
+     "UC1.3-6",
+     "UC2.3"
+    ],
+    "stages": [
+     {
+      "name": "New",
+      "elements": [
+       "Assign technician (task)"
+      ],
+      "scope": "built"
+     },
+     {
+      "name": "Assigned",
+      "elements": [],
+      "scope": "built"
+     },
+     {
+      "name": "In progress",
+      "elements": [
+       "Record arrival (auto)"
+      ],
+      "scope": "built"
+     },
+     {
+      "name": "Resolved",
+      "elements": [
+       "Notify tenant (process)"
+      ],
+      "exit_required": [
+       "Root cause"
+      ],
+      "scope": "built"
+     },
+     {
+      "name": "Escalated",
+      "elements": [
+       "Dispatcher task (process)"
+      ],
+      "scope": "built"
+     },
+     {
+      "name": "Closed",
+      "elements": [],
+      "scope": "prefilled"
+     }
+    ]
+   }
+  ],
+  "processes": [
+   {
+    "name": "Notify tenant on resolution",
+    "trigger": "Case.UsrStage changed to \"Resolved\"",
+    "actions": [
+     "Calculate Resolved in (min) from Registered on",
+     "Set SLA met",
+     "Send email to the portal user"
+    ],
+    "writes": "Case.UsrResolutionMinutes, Case.UsrSlaMet",
+    "build": "code",
+    "steps": [
+     "UC1.6-7"
+    ],
+    "realization": "real",
+    "audience_sees": "Stage turns Resolved, Resolved in fills, the email shows in the case feed"
+   },
+   {
+    "name": "Escalate work order",
+    "trigger": "Button Escalate on the Case form page",
+    "actions": [
+     "Open mini page for Escalation reason",
+     "Set stage Escalated",
+     "Create task for the Service dispatcher role"
+    ],
+    "writes": "Case.UsrStage, Activity",
+    "build": "designer",
+    "steps": [
+     "UC2.3"
+    ],
+    "note": "Pre-configured page element — designer-only",
+    "realization": "real",
+    "audience_sees": "Mini page for the reason, stage Escalated, a task for the Service dispatcher role in the case feed"
+   },
+   {
+    "name": "Run before demo",
+    "trigger": "Manual",
+    "actions": [
+     "Delete Case where Created on = today and Category = Work order",
+     "Reset WO-1017 stage to In progress"
+    ],
+    "writes": "Case",
+    "build": "code",
+    "steps": [
+     "UC1.1",
+     "UC2.3"
+    ],
+    "realization": "real",
+    "audience_sees": "Not shown — run before the session"
+   }
+  ],
+  "rules": [
+   {
+    "name": "Filter technicians by skill and region",
+    "object": "Case",
+    "page": "Case form page",
+    "level": "page",
+    "trigger": "Category or Site changes",
+    "condition": "always",
+    "effect": "Assigned technician lookup filtered: Type = Technician, Skill matches the request category, Region = the site's region",
+    "steps": [
+     "UC1.4"
+    ],
+    "realization": "real"
+   },
+   {
+    "name": "Root cause required to resolve",
+    "object": "Case",
+    "level": "object",
+    "trigger": "Stage = Resolved",
+    "condition": "Stage = Resolved",
+    "effect": "Root cause required",
+    "steps": [
+     "UC1.6"
+    ],
+    "realization": "real"
+   }
+  ],
+  "ai": [
+   {
+    "name": "SLA risk summary",
+    "kind": "Creatio.ai skill",
+    "purpose": "Summarize open and breached work orders for a site and suggest one action",
+    "inputs": "Site name, period; reads Case records of that site (stage, SLA due, SLA met, escalation reason)",
+    "output": "3-5 line summary + one suggested action",
+    "steps": [
+     "UC2.4"
+    ],
+    "realization": "real",
+    "trigger": "Prompt typed in the Creatio.ai panel on the Service home page",
+    "stored_in": "Not stored — answer shown in the Creatio.ai panel",
+    "review": "Manager reads it; no record is written",
+    "audience_sees": "The summary naming WO-1017 and the suggestion to reassign to Tom Reilly's backup",
+    "example_output": "Riverside Plaza has 3 work orders at risk this week. WO-1017 (no heating) is past its SLA because the technician was unavailable. Suggested action: reassign WO-1017 to a Downtown HVAC technician today."
+   }
+  ],
+  "ui": [
+   {
+    "name": "New request",
+    "kind": "Button",
+    "where": "Customer portal, Cases",
+    "does": "Opens the portal request form page",
+    "steps": [
+     "UC1.1"
+    ]
+   },
+   {
+    "name": "My requests",
+    "kind": "List page",
+    "where": "Customer portal",
+    "does": "The tenant's own work orders with stage",
+    "steps": [
+     "UC1.7"
+    ]
+   },
+   {
+    "name": "Open work orders",
+    "kind": "Folder",
+    "where": "Cases list page",
+    "does": "Category = Work order, stage not Resolved/Closed",
+    "steps": [
+     "UC1.2"
+    ]
+   },
+   {
+    "name": "My work orders",
+    "kind": "Mobile list page",
+    "where": "Creatio Mobile, Cases",
+    "does": "Work orders where Assigned technician = current contact",
+    "steps": [
+     "UC1.5"
+    ]
+   },
+   {
+    "name": "Start work",
+    "kind": "Button",
+    "where": "Case mobile form page",
+    "does": "Sets stage In progress and Arrived at = now",
+    "steps": [
+     "UC1.5"
+    ]
+   },
+   {
+    "name": "Resolution",
+    "kind": "Tab",
+    "where": "Case form page",
+    "does": "Root cause and resolution notes",
+    "steps": [
+     "UC1.6"
+    ]
+   },
+   {
+    "name": "Complete",
+    "kind": "Button",
+    "where": "Case form page, Resolution tab",
+    "does": "Sets stage Resolved",
+    "steps": [
+     "UC1.6"
+    ]
+   },
+   {
+    "name": "Escalate",
+    "kind": "Button",
+    "where": "Case form page",
+    "does": "Runs the Escalate work order process",
+    "steps": [
+     "UC2.3"
+    ]
+   },
+   {
+    "name": "Service home page",
+    "kind": "Home page",
+    "where": "Service workplace",
+    "does": "Holds the SLA widgets",
+    "steps": [
+     "UC2.1-2"
+    ]
+   }
+  ],
+  "integrations": [
+   {
+    "name": "Customer portal",
+    "system": "Brightline tenant portal",
+    "realization": "real",
+    "pattern": "Creatio customer portal with a portal user; the request form creates a Case",
+    "populates": "Cases list, folder Open work orders",
+    "audience_sees": "The request appears in the dispatcher's queue as WO-1042",
+    "steps": [
+     "UC1.1",
+     "UC1.7"
+    ]
+   }
+  ],
+  "notifications": [
+   {
+    "id": "N-1",
+    "name": "Work order resolved",
+    "trigger": "Case stage → Resolved (process Notify tenant on resolution)",
+    "recipient": "Tenant (portal user)",
+    "channel": "email",
+    "realization": "real",
+    "copy": "Hello {{Contact.Name}}, your request {{Case.Number}} has been resolved. Root cause: {{Case.UsrRootCause}}.",
+    "audience_sees": "Email in the case feed",
+    "steps": [
+     "UC1.6"
+    ]
+   }
+  ],
+  "slas": [
+   {
+    "name": "Critical response SLA",
+    "duration": "4 h",
+    "start": "Case registered",
+    "stop": "Stage Resolved",
+    "shown_in": "SLA due on the case; At SLA risk metric",
+    "steps": [
+     "UC1.2",
+     "UC2.1"
+    ]
+   }
+  ]
+ },
+ "data": [
+  {
+   "object": "City",
+   "purpose": "Existing OOTB cities used by the sites",
+   "records": [
+    {
+     "_key": "CITY-BOS",
+     "Name": "Boston"
+    }
+   ]
+  },
+  {
+   "object": "Account",
+   "purpose": "Sites under contract; Harbor Point is the UC1 site, Riverside Plaza the UC2 outlier",
+   "records": [
+    {
+     "_key": "SITE-HP",
+     "_main": true,
+     "Name": "Harbor Point Tower",
+     "Type": "Site",
+     "UsrRegion": "Downtown",
+     "City": "@CITY-BOS"
+    },
+    {
+     "_key": "SITE-RP",
+     "_main": true,
+     "Name": "Riverside Plaza",
+     "Type": "Site",
+     "UsrRegion": "Riverside",
+     "City": "@CITY-BOS"
+    },
+    {
+     "_key": "SITE-NH",
+     "Name": "North Hills Business Park",
+     "Type": "Site",
+     "UsrRegion": "North Hills",
+     "City": "@CITY-BOS"
+    }
+   ]
+  },
+  {
+   "object": "Contact",
+   "purpose": "Technicians for the assignment filter and the tenant who files the UC1 request",
+   "records": [
+    {
+     "_key": "TECH-MD",
+     "_main": true,
+     "Name": "Marco Diaz",
+     "Type": "Technician",
+     "UsrSkill": "Plumbing",
+     "UsrRegion": "Downtown",
+     "Email": "marco.diaz@brightline-demo.com"
+    },
+    {
+     "_key": "TECH-AK",
+     "Name": "Aisha Khan",
+     "Type": "Technician",
+     "UsrSkill": "Electrical",
+     "UsrRegion": "Downtown",
+     "Email": "aisha.khan@brightline-demo.com"
+    },
+    {
+     "_key": "TECH-TR",
+     "Name": "Tom Reilly",
+     "Type": "Technician",
+     "UsrSkill": "Plumbing",
+     "UsrRegion": "Riverside",
+     "Email": "tom.reilly@brightline-demo.com"
+    },
+    {
+     "_key": "TEN-LP",
+     "_main": true,
+     "Name": "Laura Peterson",
+     "Type": "Tenant",
+     "Email": "laura.peterson@harborpoint-demo.com"
+    }
+   ]
+  },
+  {
+   "object": "Case",
+   "purpose": "History for the SLA widgets (six weeks) plus WO-1017, the UC2 breach",
+   "records": [
+    {
+     "_key": "WO-1017",
+     "_main": true,
+     "Number": "WO-1017",
+     "Subject": "No heating in conference room B",
+     "Category": "Work order",
+     "Priority": "High",
+     "Account": "@SITE-RP",
+     "UsrStage": "In progress",
+     "UsrTechnician": "@TECH-TR",
+     "RegisteredOn": "today-1 08:10",
+     "UsrSlaDue": "today-1 16:10",
+     "UsrSlaMet": false
+    },
+    {
+     "_key": "WO-1001",
+     "Number": "WO-1001",
+     "Subject": "Flickering lights in lobby",
+     "Category": "Work order",
+     "Priority": "Medium",
+     "Account": "@SITE-HP",
+     "UsrStage": "Closed",
+     "UsrTechnician": "@TECH-AK",
+     "RegisteredOn": "today-40 09:00",
+     "UsrSlaDue": "today-39 09:00",
+     "UsrArrivedAt": "today-40 11:30",
+     "UsrRootCause": "Faulty breaker",
+     "UsrResolutionMinutes": 190,
+     "UsrSlaMet": true
+    },
+    {
+     "_key": "WO-1009",
+     "Number": "WO-1009",
+     "Subject": "Blocked drain in restroom",
+     "Category": "Work order",
+     "Priority": "High",
+     "Account": "@SITE-RP",
+     "UsrStage": "Closed",
+     "UsrTechnician": "@TECH-TR",
+     "RegisteredOn": "today-20 10:15",
+     "UsrSlaDue": "today-20 18:15",
+     "UsrArrivedAt": "today-20 19:40",
+     "UsrRootCause": "Blocked drain",
+     "UsrResolutionMinutes": 600,
+     "UsrSlaMet": false,
+     "UsrEscalationReason": "Technician unavailable"
+    }
+   ]
+  }
+ ],
+ "decisions": [
+  {
+   "kind": "deviation",
+   "text": "\"Work order\" is OOTB Case with Category \"Work order\", not a new object",
+   "why": "OOTB-first: Case already carries SLA, portal and service contract",
+   "where": "UC1.1-7"
+  },
+  {
+   "kind": "decision",
+   "text": "Technician mobile step shown in Creatio Mobile under the same demo user",
+   "why": "One user, many roles",
+   "where": "UC1.5"
+  },
+  {
+   "kind": "assumption",
+   "text": "City Boston for every site",
+   "why": "Customer materials name no addresses",
+   "where": "UC1.3"
+  }
+ ],
+ "questions": [
+  {
+   "id": "Q1",
+   "text": "Is the 4-hour SLA the same for every site, or contract-specific?",
+   "where": "UC1.2",
+   "default": "4 h for Critical everywhere",
+   "who": "customer"
+  },
+  {
+   "id": "Q2",
+   "text": "Agenda item A4 (ERP invoicing) — show a simulated invoice hand-off, or keep it for a follow-up?",
+   "where": "A4",
+   "default": "Kept for a follow-up; not in the script",
+   "who": "consultant"
+  }
+ ],
+ "_notes": "Worked example of the spec shape. The data is trimmed to a few records per object for readability: a real spec seeds what the widgets show (38 open work orders, 5 at SLA risk, Riverside Plaza at 71%) and counts it.",
+ "roles": [
+  {
+   "name": "Service dispatcher",
+   "title": "Dispatch desk",
+   "login_mode": "same user",
+   "login": "John Best",
+   "workplace": "Service",
+   "sections": [
+    "Cases"
+   ],
+   "use_cases": [
+    "UC1"
+   ]
+  },
+  {
+   "name": "Field technician",
+   "title": "Marco Diaz on site",
+   "login_mode": "same user",
+   "login": "John Best",
+   "workplace": "Creatio Mobile",
+   "sections": [
+    "Cases"
+   ],
+   "use_cases": [
+    "UC1"
+   ],
+   "scope": "same login on the phone; the technician's name shows as Assigned technician"
+  },
+  {
+   "name": "Service manager",
+   "login_mode": "same user",
+   "login": "John Best",
+   "workplace": "Service",
+   "sections": [
+    "Service home page"
+   ],
+   "use_cases": [
+    "UC2"
+   ]
+  },
+  {
+   "name": "Tenant",
+   "title": "Laura Peterson",
+   "login_mode": "portal user",
+   "login": "laura.peterson (portal)",
+   "workplace": "Customer portal",
+   "use_cases": [
+    "UC1"
+   ]
+  }
+ ],
+ "ground_rules": [
+  "All integrations are mocked: no live connectors. ERP data is preloaded; each on-stage 'system call' shows as a timeline note.",
+  "Extend the Golden Service copy — Case is the work order. Do not rebuild Service objects.",
+  "UI in English; on-screen numbers come only from the demo data workbook.",
+  "No JSON, payloads or technical IDs on screen.",
+  "One demo login (John Best) holds every internal role; only the tenant uses a separate portal login.",
+  "All dates relative to the demo day; run 'Run before demo' before every session."
+ ],
+ "out_of_scope": [
+  {
+   "item": "ERP invoicing integration",
+   "why": "agenda A4 kept for a follow-up conversation (Q2)"
+  },
+  {
+   "item": "Contract and SLA setup screens",
+   "why": "configuration, not part of the customer's agenda"
+  }
+ ],
+ "pre_demo": {
+  "must_exist": [
+   "WO-1017 at Riverside Plaza in stage In progress",
+   "Marco Diaz as Plumbing technician in Downtown"
+  ],
+  "must_not_exist": [
+   "WO-1042 — created live from the portal in UC1 step 1"
+  ],
+  "checks": [
+   "Service home page shows Open work orders 38 and At SLA risk 5"
+  ]
+ },
+ "appendix": [
+  {
+   "title": "Tenant notification email N-1",
+   "kind": "Email template (final copy)",
+   "text": "Subject: Your request {{Case.Number}} is resolved\nHello {{Contact.Name}},\nYour maintenance request {{Case.Number}} at {{Account.Name}} has been resolved by {{Case.UsrTechnician}}.\nRoot cause: {{Case.UsrRootCause}}.\nBrightline Facility Services"
+  }
+ ],
+ "_notes_research": "Research blocks below are ILLUSTRATIVE — they show the shape. A real run fills them from the transcript, the web and SharePoint Custom DEMOs (references/research-playbook.md), with real sources.",
+ "discovery": {
+  "source": "Discovery call transcript (Teams, 48 min)",
+  "date": "2026-10-02",
+  "participants": [
+   "Dana Whitfield (COO)",
+   "Raj Patel (Service Director)",
+   "Creatio AE"
+  ],
+  "moments": [
+   {
+    "id": "D1",
+    "minute": "04:12",
+    "speaker": "Dana Whitfield",
+    "kind": "pain",
+    "importance": "high",
+    "quote": "Last quarter we paid eighty thousand in SLA penalties and found out from the invoice.",
+    "insight": "Penalties are the money story — the manager view must show risk before breach",
+    "covered_by": [
+     "UC2"
+    ]
+   },
+   {
+    "id": "D2",
+    "minute": "11:40",
+    "speaker": "Raj Patel",
+    "kind": "requirement",
+    "importance": "high",
+    "quote": "Technicians need to see the asset history before they walk in.",
+    "insight": "Asset / equipment history on the work order — not in the agreed use cases",
+    "covered_by": []
+   },
+   {
+    "id": "D3",
+    "minute": "19:05",
+    "speaker": "Raj Patel",
+    "kind": "current_system",
+    "importance": "medium",
+    "quote": "Dispatch runs on a Dynamics partner add-on we inherited.",
+    "insight": "Microsoft is the incumbent — expect a Dynamics 365 Field Service comparison",
+    "covered_by": []
+   },
+   {
+    "id": "D4",
+    "minute": "31:22",
+    "speaker": "Dana Whitfield",
+    "kind": "objection",
+    "importance": "high",
+    "quote": "Every change request to our current system takes the partner six weeks.",
+    "insight": "Speed of change matters — show a live no-code change",
+    "covered_by": []
+   },
+   {
+    "id": "D5",
+    "minute": "42:10",
+    "speaker": "Dana Whitfield",
+    "kind": "signal",
+    "importance": "medium",
+    "quote": "We want to decide before the new contracts start in January.",
+    "insight": "Decision by December — keep the build focused",
+    "covered_by": [],
+    "note": "Timeline only — no demo moment"
+   }
+  ]
+ },
+ "industry": {
+  "name": "Commercial facility management",
+  "summary": "Integrated facility-management providers run maintenance contracts with response-time SLAs per building; margins depend on first-time fix and penalty avoidance.",
+  "points": [
+   {
+    "id": "IND1",
+    "point": "Contracts carry response and resolution SLAs per priority, with financial penalties",
+    "why": "Brightline's penalty losses (D1)",
+    "demo_implication": "Show SLA due on every work order and risk before breach"
+   },
+   {
+    "id": "IND2",
+    "point": "First-time fix rate is the headline operational KPI",
+    "why": "Repeat visits cost margin and tenant satisfaction",
+    "demo_implication": "Add first-time fix to the manager's home page if accepted (PA2)"
+   },
+   {
+    "id": "IND3",
+    "point": "Planned preventive maintenance (PPM) sits next to reactive work",
+    "why": "Customer agenda covers reactive only",
+    "demo_implication": "Mention PPM in a bubble; do not build it"
+   }
+  ],
+  "sources": [
+   {
+    "title": "Customer website — services page",
+    "url": "https://www.brightline-demo.com/services",
+    "date": "2026-10-15"
+   }
+  ]
+ },
+ "competitive": {
+  "summary": "Microsoft is the incumbent through a partner add-on (D3); Salesforce is the usual alternative in field service.",
+  "competitors": [
+   {
+    "name": "Microsoft Dynamics 365 Field Service",
+    "products": [
+     "Dynamics 365 Field Service",
+     "Power Platform"
+    ],
+    "why_in_deal": "Incumbent via a partner add-on (D3)",
+    "would_show": "Work orders, scheduling board, Field Service mobile app, Power BI reports",
+    "strengths": "Mature scheduling board and resource optimisation; Microsoft 365 integration",
+    "gaps": "Changes go through partners and Power Platform skills — the six-week change cycle the COO complained about (D4)",
+    "sources": [
+     {
+      "title": "Dynamics 365 Field Service product page",
+      "url": "https://www.microsoft.com/en-us/dynamics-365/products/field-service",
+      "date": "2026-10-15"
+     },
+     {
+      "title": "Battlecard: Microsoft Power Platform vs Creatio (internal, 2025)",
+      "url": "SharePoint RFP&RFI/FirstBank UK",
+      "date": "2026-10-15"
+     }
+    ]
+   },
+   {
+    "name": "Salesforce Field Service",
+    "products": [
+     "Service Cloud",
+     "Field Service"
+    ],
+    "why_in_deal": "Industry default alternative",
+    "would_show": "Dispatcher console, appointment scheduling, Field Service mobile",
+    "strengths": "Large ecosystem, strong mobile offline",
+    "gaps": "Field Service is a separate add-on licence on top of Service Cloud; heavier admin",
+    "sources": [
+     {
+      "title": "Salesforce Field Service page",
+      "url": "https://www.salesforce.com/service/field-service/",
+      "date": "2026-10-15"
+     }
+    ]
+   }
+  ],
+  "points": [
+   {
+    "id": "CMP1",
+    "uc": "UC1",
+    "they_show": "A scheduling board assigning the nearest technician",
+    "creatio_better": "The skill-and-region filter is a no-code business rule the customer can change themselves",
+    "demo_highlight": "After UC1 step 4, change the rule live in Freedom UI designer (add region 'North Hills') in under a minute",
+    "trap": "Do not compete on optimisation algorithms — Brightline did not ask for route optimisation"
+   },
+   {
+    "id": "CMP2",
+    "uc": "UC2",
+    "they_show": "Power BI dashboards built by the partner",
+    "creatio_better": "Home page widgets are configured in the same platform by the manager's team",
+    "demo_highlight": "Add a widget to the Service home page live",
+    "trap": ""
+   }
+  ]
+ },
+ "similar_demos": [
+  {
+   "id": "PD1",
+   "customer": "Example facility-services demo (illustrative)",
+   "link": "https://creatiocom.sharepoint.com/sites/SolutionConsultingDemoEngineering/Shared Documents/Custom DEMOs",
+   "industry": "Facility services",
+   "use_cases": [
+    "Work order intake",
+    "Technician mobile",
+    "SLA dashboard"
+   ],
+   "reuse": [
+    "Tenant-portal-to-case flow",
+    "SLA risk metric with a drill-down list"
+   ],
+   "lessons": [
+    "The mobile step stalled when the technician's list was empty — seed today's work orders"
+   ]
+  }
+ ],
+ "proposed_additions": [
+  {
+   "id": "PA1",
+   "title": "Asset history on the work order",
+   "kind": "feature",
+   "priority": "high",
+   "why": "The service director asked for it explicitly",
+   "sources": [
+    "D2",
+    "IND2"
+   ],
+   "demo_moment": "WO-1042 → tab Asset → boiler BX-200 with 3 past work orders and the last root cause",
+   "fits": "UC1 after step 5",
+   "effort": "M",
+   "status": "proposed"
+  },
+  {
+   "id": "PA2",
+   "title": "Live no-code change of the assignment rule",
+   "kind": "differentiator",
+   "priority": "high",
+   "why": "Answers the six-week change-cycle objection and the incumbent's weakness",
+   "sources": [
+    "D4",
+    "CMP1"
+   ],
+   "demo_moment": "Freedom UI designer → rule 'Filter technicians' → add region → save → list changes at once",
+   "fits": "UC1 after step 4",
+   "effort": "S",
+   "status": "proposed"
+  },
+  {
+   "id": "PA3",
+   "title": "Seed today's work orders for the technician",
+   "kind": "risk",
+   "priority": "medium",
+   "why": "A past demo stalled on an empty mobile list",
+   "sources": [
+    "PD1"
+   ],
+   "demo_moment": "Creatio Mobile → My work orders shows 4 jobs for today, WO-1042 on top",
+   "fits": "UC1 step 5 (data)",
+   "effort": "S",
+   "status": "proposed"
+  },
+  {
+   "id": "PA4",
+   "title": "Penalty exposure in CHF/USD on the manager's home page",
+   "kind": "story",
+   "priority": "medium",
+   "why": "The COO measures the problem in money, not in counts",
+   "sources": [
+    "D1",
+    "G1",
+    "IND1"
+   ],
+   "demo_moment": "Service home page → metric Penalty exposure this month = USD 12,400 → drill down to the 5 work orders at risk",
+   "fits": "UC2 step 1",
+   "effort": "S",
+   "status": "proposed"
+  }
+ ]
+}
