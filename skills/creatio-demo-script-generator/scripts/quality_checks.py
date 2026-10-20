@@ -313,26 +313,18 @@ EFFORT_RANK = {"S": 1, "M": 2, "L": 3}
 
 
 def deal_tier(spec, E, W):
-    """Q25 — the deal ARR sets the configuration tier (references/deal-tiers.md); budgets and proposals follow it."""
+    """Q25 — the deal ARR sets the tier (references/deal-tiers.md). The tier limits only the NEW IDEAS — the
+    proposed additions (count, effort, ambition). The agreed demo's configuration is never capped."""
     deal = spec.get("meta", {}).get("deal") or {}
     arr = deal.get("arr_usd")
     if not isinstance(arr, (int, float)):
-        E("Q25 meta.deal.arr_usd: the deal ARR in USD is mandatory — ask the user (it sets how much custom configuration the demo gets)")
+        E("Q25 meta.deal.arr_usd: the deal ARR in USD is mandatory — ask the user (it sets how many new ideas the script proposes)")
         return
     if deal.get("arr_assumed"):
-        W("Q25 meta.deal: ARR was assumed, not given — confirm it with the consultant before the build (it sets the tier)")
+        W("Q25 meta.deal: ARR was assumed, not given — confirm it with the consultant (it sets the tier)")
     t = tier_of(arr)
     if deal.get("tier") and deal["tier"] != t["key"]:
         E(f"Q25 meta.deal.tier '{deal['tier']}' does not match ARR {arr:,.0f} USD → '{t['key']}' — drop tier, it is computed")
-    excused = {x.get("budget") for x in deal.get("exceptions", []) if x.get("why")}
-    used = usage(spec)
-    for k, cap in t["budget"].items():
-        if cap is not None and used[k] > cap:
-            msg = f"Q25 {t['label']} tier (ARR {arr:,.0f} USD): {k} = {used[k]}, budget {cap}"
-            if k in excused:
-                W(msg + " — accepted: meta.deal.exceptions explains it")
-            else:
-                E(msg + " — use stock objects and features instead, move it to a proposal, or justify it in meta.deal.exceptions")
     props = spec.get("proposed_additions", [])
     pr = t["proposals"]
     if len(props) > pr["max"]:

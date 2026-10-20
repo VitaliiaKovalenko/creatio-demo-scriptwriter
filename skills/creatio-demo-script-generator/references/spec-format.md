@@ -12,7 +12,7 @@ meta
   language*          "en"
   instance*          {name, url, mode* new|reuse|copy, reference_demo (required for copy), previous_demos}   (Q1)
   deal*              {arr_usd* (number, USD — mandatory intake answer), arr_original ("EUR 70,000"), source,
-                      arr_assumed (true when not given — Medium tier, warning), exceptions[] {budget, why}}   (Q25)
+                      arr_assumed (true when not given — Medium tier, warning)}   (Q25) — the tier sizes only proposed_additions
                       The tier is computed from arr_usd (references/deal-tiers.json) — do not write it.
   industry, region, currency, duration_min, demo_user, products[], integrations[]
   website, key_products[], marketplace[]   — the team template's header rows

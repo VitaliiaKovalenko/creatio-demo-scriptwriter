@@ -88,11 +88,10 @@ missing documents go into `research_gaps`.
 
 ### The deal tier — read `references/deal-tiers.md`
 
-The ARR decides the tier: **OOTB** (< $50k — stock product, keep it simple, no custom objects), **Medium**
-($50k–100k), **High** ($100k–500k), **Extremely high** (≥ $500k — tailored build, re-thought flow). The tier caps
-custom configuration (objects, columns, lookups, processes, AI, integrations, DCM), sets the number and maximum
-effort of proposed additions, the depth of flow improvements and the data volume. The validator enforces it
-(Q25); a justified exception goes in `meta.deal.exceptions`.
+The ARR decides the tier: **OOTB** (< $50k), **Medium** ($50k–100k), **High** ($100k–500k), **Extremely high**
+(≥ $500k). The tier limits **only the new ideas** — how many proposed additions, their largest effort and how bold
+they are (quick wins at OOTB … a re-designed flow at Extremely high). It never limits the agreed demo: build the
+objects, fields, processes, AI and integrations the use cases need, at any tier. The validator enforces it (Q25).
 
 ## Phase 1 — Digest the sources
 
@@ -164,10 +163,8 @@ them; accepted ones move into the use cases in the next revision.
 
 ## Phase 5 — Object model (goes to the Build Specification)
 
-Read `references/object-model-rules.md`. **Stay inside the deal tier's budget** (new objects, columns, lookups,
-processes, AI, integrations, DCM — `references/deal-tiers.md`): at OOTB the demo uses stock objects and pages with
-a handful of new fields; anything beyond the budget becomes a proposal or a justified `meta.deal.exceptions`
-entry. In short: **OOTB first, checked** with `ootb_lookup.py find / object / values`; status existing / extended / new; new objects carry `why_not_ootb` and a `depth`; every column the steps
+Read `references/object-model-rules.md`. Model whatever the agreed use cases need — the deal tier does not limit
+the configuration. In short: **OOTB first, checked** with `ootb_lookup.py find / object / values`; status existing / extended / new; new objects carry `why_not_ootb` and a `depth`; every column the steps
 show or the data fills is listed; every bold term in a step has a home (column, lookup value, record, widget,
 process, or a `model.ui` element); **one stage field drives the flow**, DCM stages = its values; rollups are
 dashboards, not objects; every automation has `realization` + `audience_sees`; AI actions carry the full

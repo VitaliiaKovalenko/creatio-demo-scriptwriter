@@ -25,7 +25,7 @@ def to_pdf(docx, pdf):
         ps = (
             "$ErrorActionPreference='Stop';"
             "$w=New-Object -ComObject Word.Application; $w.Visible=$false; $w.DisplayAlerts=0;"
-            f"try {{ $d=$w.Documents.Open('{tmp}', $false, $true); $d.ExportAsFixedFormat('{pdf}', 17); $d.Close(0) }}"
+            f"try {{ $d=$w.Documents.Open('{tmp}', $false, $true); $d.SaveAs2('{pdf}', 17); $d.Close(0) }}"
             " finally { $w.Quit() }"
         )
         r = subprocess.run(["powershell", "-NoProfile", "-Command", ps], capture_output=True, text=True, timeout=180)

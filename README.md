@@ -13,9 +13,9 @@ For every run, in `<Client>_demo_script/`:
 
 | File | For | Contents |
 |---|---|---|
-| `<Client>_Demo_Script.docx` | consultant, SE | The SE team's script template: instance and demo goal, customer summary, **discovery insights**, demo summary, **industry context**, ground rules, roles and logins, build scope, use cases (purpose, click path, value message, required setup and data), **proposed additions** (accept or reject), **competitive positioning — internal**, **ideas from similar demos — internal**, decisions, questions |
+| `<Client>_Demo_Script.docx` | consultant, SE | In the Creatio template: header (instance, demo date, deal size, demo goal) · 1 Brief customer summary · 2 Brief demo summary · 3 Industry context · 4 Roles and logins · 5 **Demo use cases** (purpose, click path, value message, required setup and data) · 6 Competitive positioning *(internal)* · **Appendix**: proposed additions, discovery insights, ideas from similar demos *(internal)*, agenda coverage, open questions |
 | `<Client>_Demo_Script.md`, `<Client>_Build_Spec.md` | anyone | The same two documents in Markdown — for GitHub, wikis and editors |
-| `<Client>_Build_Spec.docx` | SE, coding agent | What to configure: AI actions, object model, lookups, pages, dashboards, DCM, processes, rules, integrations, notifications, clocks, data summary |
+| `<Client>_Build_Spec.docx` | SE, coding agent | Ground rules · build scope (built / simulated / talking point) · before you present · configuration: AI actions, object model, lookups, pages and buttons, dashboards, case management, processes, rules, integrations, notifications, clocks · demo data · decisions |
 | `<Client>_Demo_Data.xlsx` | builder | One import-ready sheet per object, hero records highlighted |
 | `<Client>_requirements.md`, `spec.json` | build session | Hand-off for the `creatio-demo-builder` agent |
 
@@ -25,15 +25,14 @@ Only what your inputs do not already answer — at most six questions, in one or
 
 1. **Deal ARR (USD) — always asked.** It sets the deal tier:
 
-   | ARR | Tier | What the demo gets |
+   | ARR | Tier | New ideas the agent proposes |
    |---|---|---|
-   | under $50k | **OOTB** | stock product, no custom objects, a few new fields, quick-win suggestions only |
-   | $50k–100k | **Medium** | mostly stock, up to 2 custom objects, moderate flow improvements |
-   | $100k–500k | **High** | tailored build, up to 5 custom objects, differentiators, active flow improvements |
-   | $500k and more | **Extremely high** | no caps; re-thought flow, AI agents, deep simulated integrations |
+   | under $50k | **OOTB** | 4–6 quick wins with standard functionality |
+   | $50k–100k | **Medium** | 4–8 small and medium ideas, moderate flow improvements |
+   | $100k–500k | **High** | 6–10 ideas incl. competitive differentiators and larger additions |
+   | $500k and more | **Extremely high** | 8–12 bold ideas — a re-thought flow, new use cases, AI agents |
 
-   Budgets per tier (objects, fields, lookups, processes, AI, integrations, proposals) are in
-   `skills/creatio-demo-script-generator/references/deal-tiers.json` — edit them there.
+   The tier sizes only the new ideas — never the agreed demo: custom objects, fields, processes and AI are built as the use cases need at every tier. Numbers: `skills/creatio-demo-script-generator/references/deal-tiers.json`.
 2. Discovery-call transcript — paste or attach it, or say there is none.
 3. Documents from the customer (RFP, deck, process docs, spreadsheets, agenda) — attach them, or say there are none.
 4. Reference demo instance, if any (a link or name to copy or reuse, or an earlier demo for this customer).
