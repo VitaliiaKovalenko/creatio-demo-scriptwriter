@@ -23,10 +23,20 @@ In any Claude Code chat, run these two commands, one after the other:
 /plugin install creatio-demo-scriptwriter@creatio-demo-scriptwriter
 ```
 
+**Or in a terminal** (PowerShell or Command Prompt) — the most reliable way:
+
+```
+claude plugin marketplace add VitaliiaKovalenko/creatio-demo-scriptwriter
+```
+
+```
+claude plugin install creatio-demo-scriptwriter@creatio-demo-scriptwriter
+```
+
 **Desktop app alternative:** **+** → **Plugins** → **Add plugin** → paste `VitaliiaKovalenko/creatio-demo-scriptwriter` →
 install *creatio-demo-scriptwriter*.
 
-Then **start a new chat** — plugins load when a chat starts.
+Then **restart the Claude app** — plugins load on start.
 
 ## 3. Check it works
 
@@ -48,18 +58,27 @@ in the suggestions. That's it.
 
 ## 5. Updates
 
-When a new version is announced:
+When a new version is announced, run these two commands in a **terminal** (PowerShell or Command Prompt) —
+the first refreshes the catalog, the second updates the installed plugin:
 
 ```
-/plugin marketplace update creatio-demo-scriptwriter
+claude plugin marketplace update creatio-demo-scriptwriter
 ```
 
-Then start a new chat.
+```
+claude plugin update creatio-demo-scriptwriter@creatio-demo-scriptwriter
+```
+
+Then **restart the Claude app** (or the CLI) — the new version loads on restart. In the desktop app you can also use
+**+** → **Plugins** → **Manage plugins** → *creatio-demo-scriptwriter* → **Update**, then restart.
+
+Check the installed version any time with `claude plugin list`.
 
 ## 6. Troubleshooting
 
 | Symptom | Fix |
 |---|---|
+| "Update" does nothing / old behaviour after updating | Run **both** update commands (catalog, then plugin) and **restart the app** — a new chat is not enough. `claude plugin list` shows the installed version. |
 | `/demo` shows nothing after installing | Start a new chat. Still nothing: run `/plugin`, open **Manage plugins**, check *creatio-demo-scriptwriter* is enabled. |
 | "Python is missing or too old" | Install Python 3.10+ from python.org (tick *Add to PATH*), restart the Claude app, try again. |
 | "pip install failed" | Run the command it prints yourself in a terminal (corporate proxies sometimes block the automatic install). |
@@ -70,5 +89,5 @@ Then start a new chat.
 ## 7. Uninstall
 
 ```
-/plugin uninstall creatio-demo-scriptwriter@creatio-demo-scriptwriter
+claude plugin uninstall creatio-demo-scriptwriter@creatio-demo-scriptwriter
 ```

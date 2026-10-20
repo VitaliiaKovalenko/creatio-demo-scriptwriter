@@ -66,7 +66,7 @@ In any Claude Code session, run once:
 ```
 
 Then start a new chat. In the desktop app the same is under **+** → **Plugins** → **Add plugin** (paste
-`VitaliiaKovalenko/creatio-demo-scriptwriter`). Updates arrive with `/plugin marketplace update creatio-demo-scriptwriter`.
+`VitaliiaKovalenko/creatio-demo-scriptwriter`). Updates — in a terminal: `claude plugin marketplace update creatio-demo-scriptwriter`, then `claude plugin update creatio-demo-scriptwriter@creatio-demo-scriptwriter`, then restart the app.
 
 ## Use
 
