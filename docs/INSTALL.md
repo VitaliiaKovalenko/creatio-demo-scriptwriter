@@ -8,7 +8,7 @@ About 5 minutes, once per computer. What the agent does: [CAPABILITIES.md](CAPAB
 |---|---|---|
 | **Claude Code** — the Claude desktop app (Code tab) or the Claude Code CLI | required | you already use it if you use other Creatio plugins |
 | **Python 3.10 or newer** | required | run `python --version` in a terminal; if missing or older, install from [python.org](https://www.python.org/downloads/) and tick *Add python.exe to PATH*. The agent installs its own Python libraries on the first run. |
-| **Microsoft Word** (or LibreOffice) | recommended | lets the agent render the documents and check how they look before handing them over |
+| **Microsoft Word** (or LibreOffice) | optional | only if you ask for Word output as well as Markdown; lets the agent render it and check how it looks |
 | **Microsoft 365 connector** in claude.ai | recommended | claude.ai → **Settings → Connectors** → Microsoft 365 → connect with your Creatio account. Lets the agent search past demos and battlecards in SharePoint. Without it the script is still written, and the skipped research is listed as a research gap. |
 
 ## 2. Install
@@ -51,7 +51,8 @@ in the suggestions. That's it.
 
    A clear request for a demo script starts the agent on its own; the command just guarantees it.
 3. Paste the discovery-call transcript and attach the customer's documents (or give the folder path).
-4. Answer the few questions it asks (the **deal ARR** is always one of them).
+4. Answer the few questions it asks (the **deal ARR** is always one of them). After the research it asks once more:
+   which of its new ideas to build into the use cases.
 5. Wait 20–30 minutes. The result lands in a `<Customer>_demo_script` folder in your working folder.
 6. Revise in the same chat in plain words — no command needed: *"accept PA1 and PA3, reject PA2"*,
    *"UC2 step 4 — a button, not a list"*.

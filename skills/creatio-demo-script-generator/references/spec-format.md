@@ -46,7 +46,9 @@ research_gaps[]      what research could not be done and why ("No discovery tran
                       missing research part passes the validator (Q19–Q22 are mandatory otherwise)
 proposed_additions[] {id* "PA1", title, kind* feature|story|differentiator|risk, priority high|medium|low, why*,
                       sources* [D/IND/CMP/PD findings or P/G/A/S customer ids] — always 4–10, transcript or not, demo_moment* (written like a step), fits* ("UC1 after step 4" |
-                      "new use case"), effort* S|M|L, status proposed|accepted|rejected}   (Q23) — never in scope until accepted
+                      "new use case"), effort* S|M|L, status proposed|accepted|rejected — the user decides at
+                      Phase 4, covered_by ["UC2.4"] (required when accepted: the steps that now show it)}   (Q23)
+                      — never in scope until accepted; never printed in the documents
 
 roles[]*             {name, title, login_mode* same user|separate user|portal user|email only|conceptual,
                       login (user name, never a password), workplace, sections[], scope, use_cases[]}   (Q4)

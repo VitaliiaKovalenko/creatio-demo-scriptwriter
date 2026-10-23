@@ -39,6 +39,7 @@ DAYS = re.compile(r"\b(\d{1,3})-(?:day|business-day|día)\b|\bwithin (\d{1,3}) (
 QUOTED = re.compile(r"\"[^\"]*\"|“[^”]*”|«[^»]*»")
 # captions, not questions: **bold** field names and Spanish ¿…? captions are stripped before the Q6 "?" check
 CAPTION = re.compile(r"\*\*[^*]+\*\*|¿[^?]*\?")
+STEP = re.compile(r"^UC\d+(?:\.\d+(?:-\d+)?)?$")
 
 
 def _steps_of(uc):
@@ -473,6 +474,16 @@ def research(spec, E, W):
             E(f"Q23 proposal {p.get('id')}: effort S / M / L")
         if p.get("status", "proposed") not in ("proposed", "accepted", "rejected"):
             E(f"Q23 proposal {p.get('id')}: status proposed / accepted / rejected")
+        # proposals are not printed: the user decides at intake, accepted ones live in the use cases (covered_by)
+        if p.get("status", "proposed") == "proposed":
+            W(f"Q23 proposal {p.get('id')}: still 'proposed' — ask the user to accept or reject it before building; "
+              "an unanswered one stays out of the use cases and goes into the hand-over")
+        elif p["status"] == "accepted" and not p.get("covered_by"):
+            E(f"Q23 proposal {p.get('id')}: accepted but covered_by is empty — build it into a use case (UC2.4) "
+              "and name the steps")
+        for ref in p.get("covered_by", []):
+            if not STEP.match(str(ref)):
+                E(f"Q23 proposal {p.get('id')}: covered_by {ref} — use step references like UC2 or UC2.4")
     for p in props:
         for src in p.get("sources", []):
             if src not in ids:
@@ -493,7 +504,7 @@ def research(spec, E, W):
 
 def main():
     import json
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 2 or sys.argv[1] in ("-h", "--help"):
         print(__doc__)
         sys.exit(2)
     sys.stdout.reconfigure(encoding="utf-8")

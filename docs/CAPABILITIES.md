@@ -36,7 +36,9 @@ Anything it could not research (no transcript, SharePoint not connected) is list
 
 A ranked list of extra functionality or story improvements, each with **why**, its **sources** (the transcript minute,
 industry point, competitor point, past demo or customer document), **what the audience would see**, **where it fits**
-and the **effort**. Nothing is added to the agreed scope until you accept it: *"accept PA1 and PA3, reject PA2"*.
+and the **effort**. The agent asks you once, after the research, which ideas you accept. Accepted ideas are written
+into the use cases; rejected ones are dropped; the documents never carry a separate list of ideas. A background run
+cannot ask, so it lists them in its report for you to answer: *"accept PA1 and PA3, reject PA2"*.
 
 ## 4. How many new ideas — the deal tier
 
@@ -55,10 +57,13 @@ In `<Customer>_demo_script/`:
 
 | File | For | Contents |
 |---|---|---|
-| **Demo Script** (.docx + .md) | you, the SE | In the Creatio template: header (instance, demo date, deal size, demo goal) · 1 Brief customer summary · 2 Brief demo summary · 3 Industry context · 4 Roles and logins · 5 **Demo use cases** (purpose, click path, value message, required setup and data) · 6 Competitive positioning *(internal)* · **Appendix**: proposed additions, discovery insights, ideas from similar demos *(internal)*, agenda coverage, open questions |
-| **Build Specification** (.docx + .md) | the SE, a coding agent | Ground rules · build scope (built / simulated / talking point) · before you present · configuration: AI actions, object model, lookups, pages and buttons, dashboards, case management, processes, rules, integrations, notifications, clocks · demo data · decisions |
+| **Demo Script** (.md) | you, the SE | Header (instance, demo date, deal size, demo goal) · 1 Brief customer summary · 2 Brief demo summary · 3 Industry context · 4 Roles and logins · 5 **Demo use cases** (purpose, click path, value message, required setup and data) · 6 Competitive positioning *(internal)* · **Appendix**: discovery insights, ideas from similar demos *(internal)*, supporting texts |
+| **Build Specification** (.md) | the SE, a coding agent | Ground rules · build scope (built / simulated / talking point) · before you present · configuration: AI actions, object model, lookups, pages and buttons, dashboards, case management, processes, rules, integrations, notifications, clocks · demo data |
 | **Demo data** (.xlsx) | the builder | Import-ready sheets per object, realistic for the customer's region, hero records highlighted |
 | requirements.md, spec.json | the demo build | Hand-off for the build agent |
+
+Documents are Markdown, Excel is only for data; Word in the Creatio template on request. Open questions and the
+agent's decisions come in its report, not in the documents.
 
 ## 6. Quality built in
 
@@ -84,5 +89,5 @@ source; configuration stays within the deal tier.
 - It writes documents only — it never touches a Creatio instance. The build is a separate step.
 - It does not send anything to the customer. **Remove the internal sections** (competitive positioning, ideas from
   similar demos) before sharing the Demo Script outside Creatio.
-- It does not invent facts: competitor claims without a source are dropped, and assumptions are listed as decisions or
-  questions with the default it applied.
+- It does not invent facts: competitor claims without a source are dropped, and assumptions are listed in its report
+  as decisions or questions with the default it applied.

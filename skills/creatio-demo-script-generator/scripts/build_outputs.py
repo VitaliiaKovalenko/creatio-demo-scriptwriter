@@ -1,19 +1,19 @@
 """spec.json -> the deliverables of a demo script package.
 
 Usage:
-    python build_outputs.py <spec.json> [--out <dir>] [--force] [--model-xlsx]
+    python build_outputs.py <spec.json> [--out <dir>] [--force] [--model-xlsx] [--docx]
 
-Writes, next to the spec (or into --out):
-    <Client>_Demo_Script.docx     the script (team template): customer summary, discovery insights,
-                                  demo summary, industry context, ground rules, roles, build scope,
-                                  use cases, proposed additions, competitive positioning (internal),
-                                  ideas from similar demos (internal), decisions, questions, appendices
-    <Client>_Build_Spec.docx      the SE's configuration: AI actions, object model, lookups, pages,
-                                  dashboards, DCM, processes, rules, integrations, notifications,
-                                  clocks, demo data summary
+Writes, next to the spec (or into --out) — documents as Markdown, Excel only for data:
+    <Client>_Demo_Script.md       the script: 1 Brief customer summary, 2 Brief demo summary, 3 Industry
+                                  context, 4 Roles and logins, 5 Demo use cases, 6 Competitive positioning
+                                  (internal), Appendix (discovery insights, similar demos, supporting texts)
+    <Client>_Build_Spec.md        the SE's configuration: ground rules, build scope, before you present,
+                                  AI actions, object model, lookups, pages, dashboards, DCM, processes,
+                                  rules, integrations, notifications, clocks, demo data summary
     <Client>_Demo_Data.xlsx       one import-ready sheet per object + summary + lookup values
     <Client>_requirements.md      the build hand-off (creatio-demo-build phase 1 "derive" route)
     <Client>_Object_Model.xlsx    only with --model-xlsx: the same model as filterable sheets
+    <Client>_*.docx               only with --docx: both documents in the Creatio Word template too
 Runs validate_spec.validate() first and stops on errors unless --force.
 """
 import json
@@ -495,6 +495,7 @@ def main():
     args = sys.argv[1:]
     force = "--force" in args
     model_xlsx = "--model-xlsx" in args
+    want_docx = "--docx" in args
     out = None
     if "--out" in args:
         i = args.index("--out")
@@ -516,17 +517,19 @@ def main():
         print("Not building — fix the errors (or --force for a draft).")
         sys.exit(1)
     base = safe_name(spec["meta"]["client"])
-    script, build_spec = f"{base}_Demo_Script.docx", f"{base}_Build_Spec.docx"
     data_x, req = f"{base}_Demo_Data.xlsx", f"{base}_requirements.md"
     spec = apply_date_tokens(spec, anchor_date(spec))
-    build_docx(spec, out / script, part="script")
-    build_docx(spec, out / build_spec, part="spec")
-    from build_markdown import build_markdown  # same content as Markdown — reads on GitHub, in any editor, diffs cleanly
+    from build_markdown import build_markdown  # the documents are Markdown: read in any editor, on GitHub, diff cleanly
     script_md, build_spec_md = f"{base}_Demo_Script.md", f"{base}_Build_Spec.md"
     build_markdown(spec, out / script_md, part="script")
     build_markdown(spec, out / build_spec_md, part="spec")
     build_data_xlsx(spec, out / data_x)
-    files = [script, script_md, build_spec, build_spec_md, data_x]
+    files = [script_md, build_spec_md, data_x]
+    if want_docx:  # Word only on request; the same blocks, so the formats never drift apart
+        script, build_spec = f"{base}_Demo_Script.docx", f"{base}_Build_Spec.docx"
+        build_docx(spec, out / script, part="script")
+        build_docx(spec, out / build_spec, part="spec")
+        files += [script, build_spec]
     if model_xlsx:
         files.append(f"{base}_Object_Model.xlsx")
         build_model_xlsx(spec, out / files[-1])

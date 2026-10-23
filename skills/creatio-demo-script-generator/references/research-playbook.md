@@ -6,9 +6,11 @@ cases, the attached materials, the agenda, the customer's website, SharePoint an
 adds the Discovery insights part. Anything that genuinely could not be done ("no discovery transcript was given",
 "SharePoint search unavailable") is named in `research_gaps` — the validator accepts a gap only when it is named.
 
-Four analyses run before the script is final, and their results go into the document: **Discovery insights**,
-**Industry context**, **Proposed additions**, **Competitive positioning** (internal only) and **Ideas from similar
-demos** (internal only). Every finding gets an id, so a proposal can cite where it came from:
+Four analyses run before the script is final. Their results go into the document as **Industry context**,
+**Competitive positioning** (internal only) and, in the Appendix, **Discovery insights** and **Ideas from similar
+demos** (internal only). The **Proposed additions** are not a document section: the user accepts or rejects them
+(SKILL.md Phase 4) and the accepted ones are written into the use cases. Every finding gets an id, so a proposal
+can cite where it came from:
 
 | Prefix | Finding | Spec block |
 |---|---|---|

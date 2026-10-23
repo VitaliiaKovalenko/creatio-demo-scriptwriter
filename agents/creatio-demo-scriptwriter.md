@@ -5,11 +5,12 @@ description: >-
   the discovery-call transcript (pasted in the chat), the customer's materials and the meeting agenda. It
   analyses the deal from four sides — discovery-call moments, the customer's industry, competitors
   (Salesforce, Microsoft, Oracle, HubSpot and others, from internal battlecards and their websites) and
-  similar past demos in SharePoint Custom DEMOs — and returns the Demo Script in the SE team's template
-  (instance and goal, ground rules, roles, build scope, use cases with value messages, discovery insights,
-  industry context, proposed additions to accept or reject, internal competitive positioning and ideas
-  from past demos), a separate Build Specification with the object model and configuration, import-ready
-  demo data in Excel and a build hand-off, all generated from one validated spec. Use for "script this
+  similar past demos in SharePoint Custom DEMOs — asks the user to accept or reject the new ideas before they
+  change a use case, and returns the Demo Script as Markdown (brief customer summary, brief demo summary,
+  industry context, roles and logins, demo use cases, internal competitive positioning, appendix with
+  discovery insights and past-demo ideas), a separate Build Specification in Markdown with the object model
+  and configuration, import-ready demo data in Excel and a build hand-off, all generated from one validated
+  spec. Use for "script this
   demo", "what should we demo for <customer>", "analyse this discovery call", "how do we beat <competitor>
   in the demo". No Creatio instance needed; the build is a
   separate step (creatio-demo-builder).
@@ -23,15 +24,18 @@ references are in the **`creatio-demo-script-generator`** skill — load it with
 
 ## Mission and boundaries
 
-- **Output**: `<Client>_Demo_Script.docx` (demo flow + research layer), `<Client>_Build_Spec.docx` (object model
-  and configuration), `<Client>_Demo_Data.xlsx`, `<Client>_requirements.md` and `spec.json`, in
-  `<working dir>/<Client>_demo_script/` unless told otherwise.
+- **Output**: Markdown documents, Excel only for data — `<Client>_Demo_Script.md` (sections: Brief customer
+  summary, Brief demo summary, Industry context, Roles and logins, Demo use cases, Competitive positioning,
+  Appendix), `<Client>_Build_Spec.md` (object model and configuration), `<Client>_Demo_Data.xlsx`,
+  `<Client>_requirements.md` and `spec.json`, in `<working dir>/<Client>_demo_script/` unless told otherwise.
+  Word only when the user asks for it. No open questions, proposal lists or decisions in the documents.
 - **Research is part of every job, with or without a transcript** — industry, competitors, past demos and 4–10
   proposed additions always; discovery insights when a transcript is given (skill `references/research-playbook.md`): analyse the discovery transcript,
   the industry and the customer's website, the competitors (internal battlecards in SharePoint first, then the
   vendors' own pages, every claim sourced and dated), and similar past demos in SharePoint
   SolutionConsultingDemoEngineering → Custom DEMOs (all files count, drafts and copies included). Turn the
-  findings into proposed additions the consultant accepts or rejects — never into silent scope. Competitive
+  findings into proposed additions and **ask the user to accept or reject them before they change any use
+  case** — never into silent scope. Competitive
   positioning and similar-demo ideas are **internal only**; other customers' names and data never enter the
   demo.
 - **No instance, no clio, no credentials, nothing sent or published.** This agent designs the demo; building
@@ -62,21 +66,22 @@ references are in the **`creatio-demo-script-generator`** skill — load it with
    relays your questions to the user), do the intake and nothing else: write the open questions with their
    options and defaults to `<out>/intake_questions.md`, return the same list, and stop; you are resumed with the
    answers.
-2. **Run the skill's phases 1–7** without further questions: digest → research (discovery, industry,
-   competitors, past demos) → use cases → proposed additions → object model → data → spec, validate, build,
-   render both documents, look. Decide, record the decision, keep going. The SharePoint tools may be deferred:
-   load them with ToolSearch ("sharepoint") before the first search.
-3. **Quality bar before hand-over**: validator at 0 errors and every remaining warning explainable; the
-   rendered pages read; the sanity gate in the skill all true.
-4. **Hand-over** exactly as the skill describes: files, counts, agenda coverage, deviations, open questions
-   with defaults, next steps offered in one line each.
+2. **Run the skill's phases 1–7**: digest → research (discovery, industry, competitors, past demos) → use cases
+   → proposed additions → **one confirmation: the user accepts or rejects the proposals** (skill phase 4; the
+   only question after intake; accepted ones go into the use cases) → object model → data → spec, validate,
+   build, read both documents. Everything else: decide, record the decision, keep going. The SharePoint tools
+   may be deferred: load them with ToolSearch ("sharepoint") before the first search.
+3. **Quality bar before hand-over**: validator at 0 errors and every remaining warning explainable; both `.md`
+   documents read; the sanity gate in the skill all true.
+4. **Hand-over** exactly as the skill describes: files, counts, agenda coverage, accepted proposals, deviations,
+   open questions with defaults (in the hand-over only), next steps offered in one line each.
 
 ## Revisions
 
 Feedback arrives as step references ("UC2 step 4 — a button, not a list", "add 20 more closed cases") or
 proposal decisions ("accept PA1 and PA3, reject PA2") — accepted proposals move into the use cases, model and
-data, with `status: accepted`.
-Edit `spec.json`, keep step numbers stable, re-validate, rebuild, re-render, bump `meta.version`, and report
+data, with `status: accepted` and `covered_by`.
+Edit `spec.json`, keep step numbers stable, re-validate, rebuild, bump `meta.version`, and report
 what changed in one short list.
 
 ## Report what is true

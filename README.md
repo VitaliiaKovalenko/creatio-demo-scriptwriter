@@ -13,11 +13,13 @@ For every run, in `<Client>_demo_script/`:
 
 | File | For | Contents |
 |---|---|---|
-| `<Client>_Demo_Script.docx` | consultant, SE | In the Creatio template: header (instance, demo date, deal size, demo goal) · 1 Brief customer summary · 2 Brief demo summary · 3 Industry context · 4 Roles and logins · 5 **Demo use cases** (purpose, click path, value message, required setup and data) · 6 Competitive positioning *(internal)* · **Appendix**: proposed additions, discovery insights, ideas from similar demos *(internal)*, agenda coverage, open questions |
-| `<Client>_Demo_Script.md`, `<Client>_Build_Spec.md` | anyone | The same two documents in Markdown — for GitHub, wikis and editors |
-| `<Client>_Build_Spec.docx` | SE, coding agent | Ground rules · build scope (built / simulated / talking point) · before you present · configuration: AI actions, object model, lookups, pages and buttons, dashboards, case management, processes, rules, integrations, notifications, clocks · demo data · decisions |
+| `<Client>_Demo_Script.md` | consultant, SE | Header (instance, demo date, deal size, demo goal) · 1 Brief customer summary · 2 Brief demo summary · 3 Industry context · 4 Roles and logins · 5 **Demo use cases** (purpose, click path, value message, required setup and data) · 6 Competitive positioning *(internal)* · **Appendix**: discovery insights, ideas from similar demos *(internal)*, supporting texts (email copy, AI prompts) |
+| `<Client>_Build_Spec.md` | SE, coding agent | Ground rules · build scope (built / simulated / talking point) · before you present · configuration: AI actions, object model, lookups, pages and buttons, dashboards, case management, processes, rules, integrations, notifications, clocks · demo data |
 | `<Client>_Demo_Data.xlsx` | builder | One import-ready sheet per object, hero records highlighted |
 | `<Client>_requirements.md`, `spec.json` | build session | Hand-off for the `creatio-demo-builder` agent |
+
+Documents are Markdown; Excel is only for data. Word in the Creatio template is available on request ("also as
+Word"). Open questions and the agent's decisions are reported in the chat, not in the documents.
 
 ### What it asks you
 
@@ -42,6 +44,9 @@ Only what your inputs do not already answer — at most six questions, in one or
 Everything else (who attends, competitors, language, data volume, prefix, demo login…) is decided from the inputs
 and the tier.
 
+After the research it asks **once more**: which of its new ideas (proposed additions) you accept. Accepted ideas
+are written into the use cases; rejected ones are dropped. The documents never list ideas you have not accepted.
+
 Every script is checked against 25 quality rules taken from the SE team's feedback on real scripts (instance
 named, roles with login modes, every automation real/simulated/talking point, AI with trigger/input/output,
 no credentials, no duplicate use cases, every proposal sourced, every competitor claim dated…).
@@ -51,7 +56,7 @@ no credentials, no duplicate use cases, every proposal sourced, every competitor
 **Prerequisites** (once per computer)
 - Claude Code — the desktop app (Code tab) or the CLI.
 - Python 3.10+ (the agent installs the libraries it needs by itself on the first run).
-- Microsoft Word (Windows) or LibreOffice, to render the documents for the visual check.
+- Only if you want Word output too: Microsoft Word (Windows) or LibreOffice, for the visual check.
 - For the SharePoint research: the **Microsoft 365 connector** enabled in claude.ai (Settings → Connectors) with
   your Creatio account. Without it the agent still runs and lists the skipped research under research gaps.
 
@@ -79,8 +84,9 @@ In a Claude Code session (desktop Code tab or CLI), either:
   <customer>. Use cases: … Transcript: … Files: C:\…"*. It runs in the background with sensible defaults and
   reports when done. CLI: `claude --agent creatio-demo-scriptwriter:creatio-demo-scriptwriter`.
 
-Then review the script: answer the questions, and accept or reject the proposed additions — *"accept PA1 and
-PA3, reject PA2"* — and the agent revises the script, model and data.
+Then review the script and revise in plain words (*"UC2 step 4 — a button, not a list"*). A delegated run cannot
+ask you about its ideas, so it lists them in its report; answer *"accept PA1 and PA3, reject PA2"* and the agent
+writes the accepted ones into the use cases, model and data.
 
 The competitive and similar-demo sections are **internal**. Do not send the Demo Script to the customer as is.
 

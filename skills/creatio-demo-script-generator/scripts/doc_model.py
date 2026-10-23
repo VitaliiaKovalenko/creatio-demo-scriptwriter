@@ -11,9 +11,9 @@ Block kinds:
 Inline markup inside text: **bold**, *italic*, `code`.
 
 Demo Script: header · 1 Brief customer summary · 2 Brief demo summary · 3 Industry context · 4 Roles and logins ·
-5 Demo use cases · 6 Competitive positioning (internal) · Appendix (proposed additions, discovery insights, similar
-demos, agenda coverage, open questions, content assets).
-Build Specification: header · ground rules · build scope · before you present · configuration · demo data · decisions.
+5 Demo use cases · 6 Competitive positioning (internal) · Appendix (discovery insights, similar demos, supporting
+texts from spec.appendix). Proposed additions, open questions, agenda coverage and decisions are not printed.
+Build Specification: header · ground rules · build scope · before you present · configuration · demo data.
 """
 import re
 import sys
@@ -236,11 +236,10 @@ def _script(spec, B, add, meta, brief, model, client, ucs, roles, data, objects,
                  [[f"**{c.get('name', '')}**" + (f"\n*{_joined(c.get('products'), ', ')}*" if c.get("products") else ""),
                    c.get("why_in_deal", ""), _joined(c.get("would_show")), _joined(c.get("strengths")), _joined(c.get("gaps"))]
                   for c in comp["competitors"]], [17, 16, 22, 20, 25]))
-        if comp.get("points"):
-            add(("h2", "Per use case"))
-            add(("table", ["#", "UC", "A competitor would show", "Creatio better because", "Demo highlight", "Trap to avoid"],
-                 [[x.get("id", ""), x.get("uc", ""), x.get("they_show", ""), x.get("creatio_better", ""), x.get("demo_highlight", ""),
-                   x.get("trap", "")] for x in comp["points"]], [7, 6, 20, 21, 25, 21]))
+        if comp.get("points"):  # only what the use cases do not already say: the trap, not the highlight again
+            add(("h2", "Traps to avoid"))
+            add(("table", ["UC", "A competitor would show", "Trap to avoid"],
+                 [[x.get("uc", ""), x.get("they_show", ""), x.get("trap", "")] for x in comp["points"] if x.get("trap")], [8, 46, 46]))
         srcs = list(dict.fromkeys(_src(s) for c in comp.get("competitors", []) for s in c.get("sources", [])))
         if srcs:
             add(("p_muted", "*Sources: " + "; ".join(srcs) + "*"))
@@ -248,22 +247,10 @@ def _script(spec, B, add, meta, brief, model, client, ucs, roles, data, objects,
     # ---------------- appendix
     add(("pagebreak",))
     add(("h1", "Appendix"))
+    # The appendix holds discovery insights, similar demos and supporting texts only. Proposed additions are not
+    # listed: the user accepts or rejects them at intake and the accepted ones are already in the use cases.
+    # Open questions, agenda coverage and decisions stay in the spec and the hand-over, not in the documents.
     letter = iter("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    props = spec.get("proposed_additions", [])
-    if props:
-        add(("h2", f"{next(letter)}. Proposed additions"))
-        intro = ("Ideas from the research, not in the agreed scope until accepted. Sources: discovery (D), industry (IND), "
-                 "competition (CMP), past demos (PD), the customer's own pains/goals/agenda/files (P/G/A/S).")
-        if tier:
-            pr = tier["proposals"]
-            intro += f" Deal tier **{tier['label']}**: {pr['min']}–{pr['max']} ideas, up to effort {pr['max_effort']} — {tier['intent']}"
-        add(("p_muted", intro))
-        rank = {"high": 0, "medium": 1, "low": 2}
-        add(("table", ["#", "Proposal", "Why · sources", "What the audience would see", "Fits", "Size", "Status"],
-             [[x.get("id", ""), f"**{x.get('title', '')}**\n*{x.get('kind', '')}" + (f", {x['priority']}" if x.get("priority") else "") + "*",
-               f"{x.get('why', '')} *({', '.join(x.get('sources', []))})*", x.get("demo_moment", ""), x.get("fits", ""),
-               x.get("effort", ""), x.get("status", "proposed")] for x in sorted(props, key=lambda x: rank.get(x.get("priority"), 3))],
-             [6, 17, 20, 26, 11, 8, 12]))
     disc = spec.get("discovery") or {}
     if disc.get("moments"):
         add(("h2", f"{next(letter)}. Discovery insights"))
@@ -284,20 +271,6 @@ def _script(spec, B, add, meta, brief, model, client, ucs, roles, data, objects,
              [[x.get("id", ""), f"**{x.get('customer', '')}**" + (f"\n{_short_link(x['link'])}" if x.get("link") else ""),
                f"{x.get('industry', '')} · {_joined(x.get('use_cases'), ', ')}", _joined(x.get("reuse")), _joined(x.get("lessons"))]
               for x in sims], [6, 22, 18, 27, 27]))
-    if brief.get("agenda") or brief.get("vocabulary"):
-        add(("h2", f"{next(letter)}. Agenda coverage and terms"))
-        if brief.get("agenda"):
-            names = {u["id"]: u["name"] for u in ucs}
-            add(("table", ["#", "Agenda item", "Shown in", "Note"],
-                 [[x["id"], x["text"], ", ".join(f"{u} {names.get(u, '')}" for u in x.get("covered_by", [])) or "—", x.get("note", "")]
-                  for x in brief["agenda"]], [7, 38, 28, 27]))
-        if brief.get("vocabulary"):
-            add(("table", ["Your term", "In Creatio"], [[v["client"], v["creatio"]] for v in brief["vocabulary"]], [35, 65]))
-    if spec.get("questions"):
-        add(("h2", f"{next(letter)}. Open questions"))
-        add(("p_muted", "Each question already has a default applied — the script is written to it. Answer only where the default is wrong."))
-        add(("table", ["#", "Where", "Question", "Default applied", "Who"],
-             [[q["id"], q.get("where", ""), q["text"], q["default"], q.get("who", "")] for q in spec["questions"]], [6, 11, 38, 33, 12]))
     for ap in spec.get("appendix", []):
         title = re.sub(r"^[A-Z][.)]\s+", "", ap.get("title", ""))  # the title may already carry a letter
         add(("h2", f"{next(letter)}. {title}"))
@@ -477,7 +450,3 @@ def _build_spec(spec, B, add, meta, model, client, data, objects, lookups, label
              [[f"**{objects.get(b['object'], {}).get('caption') or b['object']}**", len(b.get("records", [])),
                ", ".join(label(b["object"], r) for r in b.get("records", []) if r.get("_main")), b.get("purpose", "")] for b in data],
              [20, 9, 33, 38]))
-    if spec.get("decisions"):
-        add(("h1", "6. Decisions taken"))
-        add(("table", ["Kind", "Decision", "Why", "Where"],
-             [[d.get("kind", "decision"), d.get("text", ""), d.get("why", ""), d.get("where", "")] for d in spec["decisions"]], [12, 42, 34, 12]))

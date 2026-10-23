@@ -471,8 +471,7 @@ def validate(spec):
             E(f"question {q.get('id')}: no default applied")
         if q.get("who") not in ("consultant", "SE", "customer"):
             W(f"question {q.get('id')}: who should be consultant / SE / customer")
-    if not spec.get("questions"):
-        W("questions is empty — a source read with zero open questions was probably read too kindly")
+    # questions are optional (user, 2026-10-23): they are not printed in the documents, only listed in the hand-over
     if not spec.get("decisions"):
         W("decisions is empty — record what you resolved and why (the deviation record)")
 
@@ -483,7 +482,7 @@ def validate(spec):
 
 
 def main():
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 2 or sys.argv[1] in ("-h", "--help"):
         print(__doc__)
         sys.exit(2)
     sys.stdout.reconfigure(encoding="utf-8")

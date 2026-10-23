@@ -1,5 +1,9 @@
 # The docx house style, and the mechanics that fail silently
 
+> **Optional since v1.5.0.** The documents are Markdown by default; Word is built only with
+> `build_outputs.py --docx`, when the user asks for it. The Word output uses the Creatio template
+> (`creatio-template.docx`, rendered by `scripts/docx_render.py`); the mechanics below still apply to it.
+
 Both output documents of this pipeline follow the same style. It is a contract, not a suggestion — the
 consultants recognise these documents by their look, and a document that renders differently reads as someone
 else's work.
