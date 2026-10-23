@@ -14,12 +14,14 @@ For every run, in `<Client>_demo_script/`:
 | File | For | Contents |
 |---|---|---|
 | `<Client>_Demo_Script.md` | consultant, SE | Header (instance, demo date, deal size, demo goal) · 1 Brief customer summary · 2 Brief demo summary · 3 Industry context · 4 Roles and logins · 5 **Demo use cases** (purpose, click path, value message, required setup and data) · 6 Competitive positioning *(internal)* · **Appendix**: discovery insights, ideas from similar demos *(internal)*, supporting texts (email copy, AI prompts) |
+| `<Client>_Demo_Script.html` → **shareable page** | team, reviewers | The same script as a private Claude page with a link you share from its **Share** menu. An `--external` copy leaves out the internal sections, for anyone outside Creatio. |
 | `<Client>_Build_Spec.md` | SE, coding agent | Ground rules · build scope (built / simulated / talking point) · before you present · configuration: AI actions, object model, lookups, pages and buttons, dashboards, case management, processes, rules, integrations, notifications, clocks · demo data |
 | `<Client>_Demo_Data.xlsx` | builder | One import-ready sheet per object, hero records highlighted |
 | `<Client>_requirements.md`, `spec.json` | build session | Hand-off for the `creatio-demo-builder` agent |
 
-Documents are Markdown; Excel is only for data. Word in the Creatio template is available on request ("also as
-Word"). Open questions and the agent's decisions are reported in the chat, not in the documents.
+Documents are Markdown; Excel is only for data. The agent also publishes the Demo Script as a shareable page and
+gives you its link; on revisions the same link shows the new version. Word in the Creatio template is available
+on request ("also as Word"). Open questions and the agent's decisions are reported in the chat, not in the documents.
 
 ### What it asks you
 

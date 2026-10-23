@@ -12,6 +12,7 @@ in one read and an engineer can build without asking:
 | Deliverable | What it is | Who reads it |
 |---|---|---|
 | `<Client>_Demo_Script.md` | **The script** — exactly these sections: header (instance, date, deal size, use cases, demo goal) → **1 Brief customer summary** → **2 Brief demo summary** → **3 Industry context** → **4 Roles and logins** → **5 Demo use cases** (Purpose · Click path · Value message · Required setup · Required data) → **6 Competitive positioning (internal)** → **Appendix** (discovery insights, similar demos — internal, supporting texts such as email copy or AI prompts) | consultant, SE |
+| `<Client>_Demo_Script.html` → **shareable page** | The same Demo Script, same sections, as one self-contained page. Published as a private Claude Artifact, it gives a link the consultant shares from the page's Share menu (`build_html.py --external` writes a copy without the internal sections, for anyone outside Creatio) | team, SE, reviewers |
 | `<Client>_Build_Spec.md` | **What to configure**: ground rules, build scope, before you present, AI actions, object model, lookups, pages and buttons, dashboards, DCM, processes, rules, integrations, notifications, clocks, demo data summary | SE, coding agent |
 | `<Client>_Demo_Data.xlsx` | One import-ready sheet per object, hero records highlighted, lookup values to create, import order | builder |
 | `<Client>_requirements.md` + `spec.json` | Build hand-off for `creatio-demo-build` phase 1 | build session |
@@ -203,7 +204,18 @@ stand already has.
    workbook, the hand-off. (Only if the user asked for Word: add `--docx`, then run
    `render_check.py <docx>` for both and read every PNG in `_render/`.)
 4. Read both `.md` files top to bottom as the SE would.
-5. Sanity gate — every item true:
+5. **Publish the shareable page** when the session has the `Artifact` tool (load it with ToolSearch if it is
+   deferred): read `<Client>_Demo_Script.html` whole first (the tool publishes only what you have read), then
+   publish it — `file_path` = that file, `icon` = `document`, `description` = one sentence naming the customer
+   and the use case, and "internal" if it holds the competitive section. Write the returned link into
+   `meta.artifact_url` in `spec.json`. On a revision, rebuild and publish the same file path again (same
+   session) or pass `url` = `meta.artifact_url` (another session), so the link stays the same. The page is
+   private: tell the user that colleagues open it only after the user shares it from the page's **Share**
+   menu, and that the full page is internal — for anyone outside Creatio, build `--external`
+   (`python "$SKILL_DIR/scripts/build_html.py" <out>/spec.json --external`) and publish that file as a
+   separate page. No `Artifact` tool: skip this step and say in the hand-over that the `.html` file can be
+   opened in any browser or attached as is.
+6. Sanity gate — every item true:
    - agenda covered or noted; every use case answers a pain; every pain answered;
    - validator 0 errors; no unexplained "bold step terms with no home";
    - every number on screen recounted from the data;
@@ -214,7 +226,8 @@ stand already has.
 
 ## Hand-over
 
-In the conversation: the file paths; use cases with step counts and agenda coverage; which proposals were
+In the conversation: the shareable page's link first (private until shared from its Share menu; internal
+unless it is the `--external` copy), then the file paths; use cases with step counts and agenda coverage; which proposals were
 accepted (and where they are in the use cases) — or, if nobody could be asked, the **proposed additions** ranked,
 one line each, for the user to decide; the **discovery moments not covered**; the competitors analysed and the
 one highlight per competitor that matters most; object and record counts; the deviations; the open questions
@@ -230,5 +243,6 @@ and the data workbook).
 
 Corrections come back as step references ("UC2 step 4 — a button, not a list") or proposal decisions ("accept
 PA1 and PA3"). Accepted proposals: write them into the use cases (new steps take the next free number), extend
-model and data, set `status: accepted` and `covered_by`. Edit `spec.json`, re-validate, rebuild, bump `meta.version`.
+model and data, set `status: accepted` and `covered_by`. Edit `spec.json`, re-validate, rebuild, bump `meta.version`,
+and republish the page to `meta.artifact_url` so the shared link shows the new version.
 Shifting the demo day is one change: `meta.date`, then rebuild.

@@ -7,6 +7,8 @@ Writes, next to the spec (or into --out) — documents as Markdown, Excel only f
     <Client>_Demo_Script.md       the script: 1 Brief customer summary, 2 Brief demo summary, 3 Industry
                                   context, 4 Roles and logins, 5 Demo use cases, 6 Competitive positioning
                                   (internal), Appendix (discovery insights, similar demos, supporting texts)
+    <Client>_Demo_Script.html     the same script as one self-contained page, to publish as a shareable Artifact
+                                  (build_html.py --external writes a copy without the internal sections)
     <Client>_Build_Spec.md        the SE's configuration: ground rules, build scope, before you present,
                                   AI actions, object model, lookups, pages, dashboards, DCM, processes,
                                   rules, integrations, notifications, clocks, demo data summary
@@ -523,8 +525,11 @@ def main():
     script_md, build_spec_md = f"{base}_Demo_Script.md", f"{base}_Build_Spec.md"
     build_markdown(spec, out / script_md, part="script")
     build_markdown(spec, out / build_spec_md, part="spec")
+    from build_html import build_html  # the shareable page: publish it as an Artifact, same blocks as the .md
+    script_html = f"{base}_Demo_Script.html"
+    build_html(spec, out / script_html)
     build_data_xlsx(spec, out / data_x)
-    files = [script_md, build_spec_md, data_x]
+    files = [script_md, script_html, build_spec_md, data_x]
     if want_docx:  # Word only on request; the same blocks, so the formats never drift apart
         script, build_spec = f"{base}_Demo_Script.docx", f"{base}_Build_Spec.docx"
         build_docx(spec, out / script, part="script")

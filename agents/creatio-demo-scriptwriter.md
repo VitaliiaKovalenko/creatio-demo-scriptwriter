@@ -29,6 +29,9 @@ references are in the **`creatio-demo-script-generator`** skill — load it with
   Appendix), `<Client>_Build_Spec.md` (object model and configuration), `<Client>_Demo_Data.xlsx`,
   `<Client>_requirements.md` and `spec.json`, in `<working dir>/<Client>_demo_script/` unless told otherwise.
   Word only when the user asks for it. No open questions, proposal lists or decisions in the documents.
+  **Plus a shareable page**: the same Demo Script as `<Client>_Demo_Script.html`, published as a private Claude
+  Artifact (skill phase 7, step 5); its link opens the hand-over. The user shares it from the page's Share menu;
+  the full page is internal, the `--external` copy is the one for outside Creatio.
 - **Research is part of every job, with or without a transcript** — industry, competitors, past demos and 4–10
   proposed additions always; discovery insights when a transcript is given (skill `references/research-playbook.md`): analyse the discovery transcript,
   the industry and the customer's website, the competitors (internal battlecards in SharePoint first, then the
@@ -69,11 +72,11 @@ references are in the **`creatio-demo-script-generator`** skill — load it with
 2. **Run the skill's phases 1–7**: digest → research (discovery, industry, competitors, past demos) → use cases
    → proposed additions → **one confirmation: the user accepts or rejects the proposals** (skill phase 4; the
    only question after intake; accepted ones go into the use cases) → object model → data → spec, validate,
-   build, read both documents. Everything else: decide, record the decision, keep going. The SharePoint tools
+   build, read both documents, publish the shareable page. Everything else: decide, record the decision, keep going. The SharePoint tools
    may be deferred: load them with ToolSearch ("sharepoint") before the first search.
 3. **Quality bar before hand-over**: validator at 0 errors and every remaining warning explainable; both `.md`
    documents read; the sanity gate in the skill all true.
-4. **Hand-over** exactly as the skill describes: files, counts, agenda coverage, accepted proposals, deviations,
+4. **Hand-over** exactly as the skill describes: the shareable page's link, files, counts, agenda coverage, accepted proposals, deviations,
    open questions with defaults (in the hand-over only), next steps offered in one line each.
 
 ## Revisions

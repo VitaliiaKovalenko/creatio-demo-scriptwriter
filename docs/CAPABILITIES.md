@@ -58,6 +58,7 @@ In `<Customer>_demo_script/`:
 | File | For | Contents |
 |---|---|---|
 | **Demo Script** (.md) | you, the SE | Header (instance, demo date, deal size, demo goal) · 1 Brief customer summary · 2 Brief demo summary · 3 Industry context · 4 Roles and logins · 5 **Demo use cases** (purpose, click path, value message, required setup and data) · 6 Competitive positioning *(internal)* · **Appendix**: discovery insights, ideas from similar demos *(internal)*, supporting texts |
+| **Shareable page** (link) | your team, reviewers | The same Demo Script as a private Claude page: share it from its Share menu. An external copy without the internal sections is available for the customer. |
 | **Build Specification** (.md) | the SE, a coding agent | Ground rules · build scope (built / simulated / talking point) · before you present · configuration: AI actions, object model, lookups, pages and buttons, dashboards, case management, processes, rules, integrations, notifications, clocks · demo data |
 | **Demo data** (.xlsx) | the builder | Import-ready sheets per object, realistic for the customer's region, hero records highlighted |
 | requirements.md, spec.json | the demo build | Hand-off for the build agent |

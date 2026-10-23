@@ -15,6 +15,7 @@ meta
   deal*              {arr_usd* (number, USD — mandatory intake answer), arr_original — the figure as stated, short ("EUR 70,000", "$100k–500k"), no commentary; source,
                       arr_assumed (true when not given — Medium tier, warning)}   (Q25) — the tier sizes only proposed_additions
                       The tier is computed from arr_usd (references/deal-tiers.json) — do not write it.
+  artifact_url       the shareable page's link, written after the first publish; revisions republish to it
   industry, region, currency, duration_min, demo_user, products[], integrations[]
   website, key_products[], marketplace[]   — the team template's header rows
   build_budget_h     build effort budget, shown with the protect-in-order list
