@@ -58,7 +58,10 @@ references are in the **`creatio-demo-script-generator`** skill — load it with
    $100–500k, Extremely high ≥ $500k — skill `references/deal-tiers.md`), which sizes only the new ideas (the proposed additions) —
    never the agreed demo's configuration. Running in the background without an ARR: Medium tier, `arr_assumed`,
    and the ARR question first in the hand-over. If you cannot ask — you run as a background subagent — apply the
-   recommended defaults and list them first in the hand-over.
+   recommended defaults and list them first in the hand-over. If the brief says **intake only** (a dispatcher
+   relays your questions to the user), do the intake and nothing else: write the open questions with their
+   options and defaults to `<out>/intake_questions.md`, return the same list, and stop; you are resumed with the
+   answers.
 2. **Run the skill's phases 1–7** without further questions: digest → research (discovery, industry,
    competitors, past demos) → use cases → proposed additions → object model → data → spec, validate, build,
    render both documents, look. Decide, record the decision, keep going. The SharePoint tools may be deferred:

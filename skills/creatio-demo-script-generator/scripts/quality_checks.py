@@ -2,10 +2,14 @@
 references/script-quality-rules.md). Called by validate_spec.validate(); each check names the rule
 it enforces (Q1…) so a failure can be looked up.
 
+Usage (the quality checks alone; validate_spec.py runs them too):
+    python quality_checks.py <spec.json>
+
 Good examples the rules come from: Script A, Script B, Script C, Script D,
 Script E, Script F. Failure examples: Script G, Script H.
 """
 import re
+import sys
 
 REALIZATION = ("real", "simulated", "talking point")
 LOGIN_MODES = ("same user", "separate user", "portal user", "email only", "conceptual")
@@ -33,6 +37,8 @@ CREDENTIAL = re.compile(r"\b(password|passwd|pwd|pw|contraseña|credentials?)\s*
 DAYS = re.compile(r"\b(\d{1,3})-(?:day|business-day|día)\b|\bwithin (\d{1,3}) (?:business )?days?\b|"
                   r"\b(\d{1,3}) (?:business )?days? (?:SLA|clock|window|deadline|limit|rule)\b", re.I)
 QUOTED = re.compile(r"\"[^\"]*\"|“[^”]*”|«[^»]*»")
+# captions, not questions: **bold** field names and Spanish ¿…? captions are stripped before the Q6 "?" check
+CAPTION = re.compile(r"\*\*[^*]+\*\*|¿[^?]*\?")
 
 
 def _steps_of(uc):
@@ -128,7 +134,7 @@ def quality(spec, E, W):
         for it in uc.get("items", []):
             if "step" in it and TALK_IN_STEP.search(it.get("text", "")):
                 E(f"Q6 {uid}.{it['step']}: talking points belong in a bubble, not in a numbered step")
-            if "step" in it and "?" in QUOTED.sub("", it.get("text", "")):
+            if "step" in it and "?" in CAPTION.sub("", QUOTED.sub("", it.get("text", ""))):
                 W(f"Q6 {uid}.{it['step']}: a question inside a step — decide it, or move it to questions")
 
     # Q7 — every automation says real / simulated / talking point and what the audience sees
@@ -483,3 +489,24 @@ def research(spec, E, W):
         if m.get("importance") == "high" and not m.get("covered_by") and m.get("id") not in cited and not m.get("note"):
             W(f"Q24 discovery {m.get('id')} ({m.get('kind')}): high importance, covered by no use case and no proposal — "
               "propose something, or add a note why not")
+
+
+def main():
+    import json
+    if len(sys.argv) != 2:
+        print(__doc__)
+        sys.exit(2)
+    sys.stdout.reconfigure(encoding="utf-8")
+    spec = json.loads(open(sys.argv[1], encoding="utf8").read())
+    errors, warnings = [], []
+    quality(spec, errors.append, warnings.append)
+    for e in errors:
+        print("ERROR  ", e)
+    for w in warnings:
+        print("warn   ", w)
+    print(f"quality checks: {len(errors)} errors, {len(warnings)} warnings")
+    sys.exit(1 if errors else 0)
+
+
+if __name__ == "__main__":
+    main()

@@ -9,9 +9,10 @@ meta
   title              "Demo Script"
   version            "v1" — bump on every revision
   date*              "2026-10-15" — the demo day; relative dates resolve against it
-  language*          "en"
+  language*          "en" — a code ("en", "es-CL"); the header prints it as "English", "Spanish (Chile)". The
+                     demo-UI language and other language notes go in ground_rules, not here
   instance*          {name, url, mode* new|reuse|copy, reference_demo (required for copy), previous_demos}   (Q1)
-  deal*              {arr_usd* (number, USD — mandatory intake answer), arr_original ("EUR 70,000"), source,
+  deal*              {arr_usd* (number, USD — mandatory intake answer), arr_original — the figure as stated, short ("EUR 70,000", "$100k–500k"), no commentary; source,
                       arr_assumed (true when not given — Medium tier, warning)}   (Q25) — the tier sizes only proposed_additions
                       The tier is computed from arr_usd (references/deal-tiers.json) — do not write it.
   industry, region, currency, duration_min, demo_user, products[], integrations[]
@@ -52,7 +53,7 @@ roles[]*             {name, title, login_mode* same user|separate user|portal us
 ground_rules[]       demo-wide rules as sentences (Q5)
 out_of_scope[]       {item, why} — what is deliberately not built (Q15)
 pre_demo             {must_exist[], must_not_exist[] (records created live), checks[]}   (Q17)
-appendix[]           {title, kind, text (paragraphs separated by \n)} — KB article, email copy, transcript…
+appendix[]           {title (no letter — the generator letters appendices), kind, text (paragraphs separated by \n)} — KB article, email copy, transcript…
 
 use_cases[]
   id "UC1", name, agenda ["A1"], pains ["P1"], persona (a roles[].name), entry_points ["web","mobile","portal",…]

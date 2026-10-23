@@ -111,6 +111,9 @@ files included. Also useful: `SC knowledge library` (scripts by region), `DEMO l
 
 Ignore results from the consultant's own OneDrive output folders (`…/personal/…/<Client>_demo_script/…`, files
 named `*_Demo_Script.docx` produced by this skill) — they are this tool's earlier output, not past demos.
+Filter the hits by path **before** reading any: drop every result whose path is under `/personal/`, or contains
+`_demo_script`, `scriptwriter`, `creatio-demo-script` or `context-library`, or whose name ends in `_Demo_Script`,
+`_Build_Spec`, `_Demo_Data` or `_requirements` (this skill's file names) — and say in `sources` how many you dropped.
 
 Search with `sharepoint_search`, `folderName: "Custom DEMOs"`, several queries: the industry ("dairy",
 "food manufacturer", "credit union"), the use cases ("store visit", "promo compliance", "field sales"), the

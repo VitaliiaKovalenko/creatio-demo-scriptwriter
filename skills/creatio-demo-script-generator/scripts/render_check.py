@@ -6,8 +6,8 @@ Usage:
 Windows: drives Word through COM on a temporary COPY (the deliverable stays unlocked).
 Elsewhere: soffice --headless --convert-to pdf. Then PyMuPDF writes <name>_p<k>.png for the first
 N pages (default: all) into a _render folder beside the file (the PDF goes there too, so the
-deliverable folder stays clean), and prints the PDF's page count plus
-the paths to Read. Read the PNGs: a lost header, a table past the margin or a broken bubble is
+deliverable folder stays clean; PNGs of an earlier render of the same file are deleted first), and prints
+the PDF's page count plus the paths to Read. Read the PNGs: a lost header, a table past the margin or a broken bubble is
 visible only in the render.
 """
 import os
@@ -48,6 +48,8 @@ def main():
     out = docx.parent / "_render"
     out.mkdir(exist_ok=True)
     pdf = out / (docx.stem + ".pdf")
+    for old in out.glob(f"{docx.stem}_p*.png"):  # pages of an earlier, longer render must not be read as current
+        old.unlink()
     to_pdf(docx, pdf)
     try:
         import pymupdf as fitz
@@ -61,9 +63,11 @@ def main():
         png = out / f"{docx.stem}_p{i + 1}.png"
         page.get_pixmap(dpi=110).save(png)
         print("PNG:", png)
+    # "click" / "say" are checked where they matter, in numbered steps, by validate_spec (FORBIDDEN_STEP);
+    # on the rendered page they mostly hit decisions and verbatim customer quotes, so only placeholders are flagged
     for n, page in enumerate(d, 1):
-        text = page.get_text().replace("Click path", "")  # the template's own heading
-        for word in ("click", "Click", " say ", "TBD", "Lorem"):
+        text = page.get_text()
+        for word in ("TBD", "Lorem", "#N/A"):
             i = text.find(word)
             if i >= 0:
                 ctx = " ".join(text[max(0, i - 50):i + 50].split())

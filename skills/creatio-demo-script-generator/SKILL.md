@@ -77,10 +77,13 @@ form offers "I'll paste / attach it in the chat" or "None"; then wait for the fi
 
 Never asked — decided from the inputs and the tier, and listed in the hand-over: who attends (from the transcript,
 agenda and prompt), competitors (named ones, else the industry's usual 2–3), industry and FinServ or not, language
-and region of the data, data volume (from the tier), schema prefix (`Usr`), demo login (John Best), currency. If the
+and region of the data, data volume (Showcase; Rich only when the story is about volume), schema prefix (`Usr`), demo login (John Best), currency. If the
 user answers "no questions, just do it", only question 1 still stands; everything else takes its default. As a
 background subagent with no way to ask, apply the defaults — for a missing ARR the **Medium** tier with
-`arr_assumed: true` — and put the unanswered questions first in the hand-over.
+`arr_assumed: true` — and put the unanswered questions first in the hand-over. When the brief says
+**intake only** (a dispatcher relays the questions to the user), run Phase 0 and stop: write the questions you
+would ask — options and default for each — to `<out>/intake_questions.md`, return the same list, and wait to be
+resumed with the answers.
 
 Write the answers into the spec: `meta.deal` (`arr_usd`, `arr_original` when another currency, `source`),
 `meta.instance` (with `reference_demo` when given), `meta.date`, `meta.duration_min`; a missing transcript or
@@ -173,7 +176,8 @@ contract (trigger, inputs, output, stored_in, review, example_output); clocks in
 
 ## Phase 6 — Demo data
 
-Read `references/demo-data-rules.md`. Volume follows the deal tier (OOTB Showcase-light … Extremely high Rich).
+Read `references/demo-data-rules.md`. Volume follows the story, not the deal tier (the tier sizes only the proposed additions): Showcase by default,
+Rich when the customer's story is about volume.
 Every object the demo touches gets records; hero records (`_main`) match
 the steps letter for letter and sit in their opening state; enough history for every widget; relative dates
 (`today-30`, `som-1`) and `{date:…}` tokens in text; **every number on screen computed from the data** (generate

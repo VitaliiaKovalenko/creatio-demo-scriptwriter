@@ -9,7 +9,7 @@
       "name": "creatio-demo-scriptwriter",
       "source": "./",
       "description": "Customer input + research to a Demo Script, Build Specification and demo data",
-      "version": "1.4.0"
+      "version": "1.4.1"
     }
   ]
 }

@@ -121,3 +121,15 @@ Extra options: **Enable adding new values**, **Enable opening the record list**.
 - https://academy.creatio.com/guides/no-code-customization/category/layout-elements
 - https://academy.creatio.com/guides/no-code-customization/customization-tools/ui-and-business-logic-customization/element-setup-examples/layout-elements/set-up-a-grid-container-layout-element
 - https://academy.creatio.com/guides/no-code-customization/customization-tools/ui-and-business-logic-customization/analytics/set-up-dashboards
+
+## Loading indicators with custom text (script guidance)
+
+A step like "a spinner reads *Consultando FISA y Nuek…*" is **not a no-code setting**. Freedom UI shows its own
+loading mask while a page request or a process runs, without custom text. *(Unverified on 8.3 — check on the stand.)*
+Choose one, write it into `decisions`, and keep the source's wording visible to the presenter:
+- **OOTB mask + bubble** (default): the process runs and the standard mask shows; the presenter says the text in a
+  bubble. Realization `simulated`.
+- **Custom text** (effort M, developer): a custom request handler shows a mask or toast with the text before the
+  process call. Put it in the Build Spec as a front-end task.
+Never swap the spinner silently for a feed post or a notification; if you use one as well, say that it was added.
+

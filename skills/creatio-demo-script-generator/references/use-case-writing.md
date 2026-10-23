@@ -88,6 +88,11 @@ technician → technician resolves it on site → tenant sees it closed.*
    makes the script buildable as well as presentable: **every bold term must have a home** in the model
    (column, lookup value, `model.ui` element, widget, process) or the data (a record) — the validator lists
    the ones that do not.
+   **Captions of standard (OOTB) buttons, actions and fields are never translated by you.** Write them as the
+   product shows them in the demo language when a capsule or the source gives that caption; otherwise keep the
+   English caption exactly (**Assign to me**, **Complete**) and add one question with the default "English
+   caption kept". Captions of new or renamed fields come from the source or the model, in the demo language.
+   The same input must give the same caption on every run.
 4. **Provenance in `*(italics)*`** whenever the presenter did not type the value: *(created by the process)*,
    *(calculated by the rule)*, *(AI skill "…")*, *(from the ERP feed — simulated)*. The audience must see the
    system do the work.

@@ -10,6 +10,9 @@ import json
 import re
 import sys
 from datetime import date, datetime, timedelta
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # siblings import under python -I too
 
 TYPES = {
     "text", "long text", "rich text", "integer", "decimal", "currency", "percentage", "date",

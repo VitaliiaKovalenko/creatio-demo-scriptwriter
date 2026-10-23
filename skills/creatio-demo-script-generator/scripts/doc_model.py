@@ -16,9 +16,28 @@ demos, agenda coverage, open questions, content assets).
 Build Specification: header · ground rules · build scope · before you present · configuration · demo data · decisions.
 """
 import re
+import sys
+from pathlib import Path
 
-from quality_checks import tier_of
-from validate_spec import display_column, norm_type
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # siblings import under python -I too
+
+from quality_checks import tier_of  # noqa: E402
+from validate_spec import display_column, norm_type  # noqa: E402
+
+LANGUAGES = {"en": "English", "es": "Spanish", "pt": "Portuguese", "fr": "French", "de": "German", "it": "Italian",
+             "nl": "Dutch", "pl": "Polish", "uk": "Ukrainian", "ar": "Arabic", "tr": "Turkish", "ja": "Japanese",
+             "zh": "Chinese"}
+REGIONS = {"CL": "Chile", "MX": "Mexico", "AR": "Argentina", "CO": "Colombia", "PE": "Peru", "ES": "Spain", "BR": "Brazil",
+           "PT": "Portugal", "US": "US", "GB": "UK", "CA": "Canada", "DE": "Germany", "AT": "Austria", "CH": "Switzerland",
+           "SA": "Saudi Arabia", "AE": "UAE"}
+
+
+def language_label(value):
+    """meta.language "en" / "es-CL" -> "English" / "Spanish (Chile)"; anything that is not a code is printed as is."""
+    m = re.fullmatch(r"([a-z]{2})(?:[-_]([A-Z]{2}))?", str(value).strip())
+    if not m or m.group(1) not in LANGUAGES:
+        return value
+    return LANGUAGES[m.group(1)] + (f" ({REGIONS.get(m.group(2), m.group(2))})" if m.group(2) else "")
 
 STATUS = {"new": "**new**", "extended": "extended", "existing": "*existing*"}
 REAL = {"real": "**real**", "simulated": "simulated", "talking point": "*talking point*"}
@@ -89,8 +108,9 @@ def blocks(spec, part="script"):
                                                   {"new": "new stand", "reuse": "reuse the existing stand",
                                                    "copy": f"copy of {inst.get('reference_demo', '')}"}.get(inst.get("mode"), "")] if x)),
         ("Demo date", meta.get("date", "") + (f" · {meta['duration_min']} min" if meta.get("duration_min") else "")),
-        ("Deal size", (f"ARR {deal['arr_usd']:,.0f} USD" + (f" ({deal['arr_original']})" if deal.get("arr_original") else "")
-                       + f" → {tier['label']}" + (" — assumed, confirm" if deal.get("arr_assumed") else "")) if tier else ""),
+        ("Deal size", (f"{tier['label']} · ARR {deal['arr_usd']:,.0f} USD"
+                       + (f" · stated as {deal['arr_original'].strip(' ()')}" if deal.get("arr_original") else "")
+                       + (" · assumed, confirm" if deal.get("arr_assumed") else "")) if tier else ""),
         ("Use cases", " · ".join(f"{u['id']} {u['name']}" for u in ucs)),
         ("Walkthrough video", meta.get("walkthrough", "")),
     ]
@@ -118,7 +138,7 @@ def _script(spec, B, add, meta, brief, model, client, ucs, roles, data, objects,
         ("Key customer products", " · ".join(meta.get("key_products", []))),
         ("Key roles", ", ".join(r["name"] for r in roles)),
         ("Key marketplace solutions", ", ".join(meta.get("marketplace", [])) or "none"),
-        ("Languages", meta.get("language", ""))] if v]))
+        ("Languages", language_label(meta.get("language", "")))] if v]))
 
     add(("h1", "2. Brief demo summary"))
     heroes = []
@@ -279,7 +299,8 @@ def _script(spec, B, add, meta, brief, model, client, ucs, roles, data, objects,
         add(("table", ["#", "Where", "Question", "Default applied", "Who"],
              [[q["id"], q.get("where", ""), q["text"], q["default"], q.get("who", "")] for q in spec["questions"]], [6, 11, 38, 33, 12]))
     for ap in spec.get("appendix", []):
-        add(("h2", f"{next(letter)}. {ap.get('title', '')}"))
+        title = re.sub(r"^[A-Z][.)]\s+", "", ap.get("title", ""))  # the title may already carry a letter
+        add(("h2", f"{next(letter)}. {title}"))
         if ap.get("kind"):
             add(("p_muted", f"*{ap['kind']}*"))
         for para in str(ap.get("text", "")).split("\n"):

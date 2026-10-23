@@ -68,6 +68,17 @@ Classic dashboard tile types: **Chart, Metric, List, Pivot table, Widget, Gauge,
 **Classic-only — never use for Freedom UI:** *Pivot table*, *Web page*, *Widget* (custom tile), *Pie*.
 **Freedom-UI-only — never use for Classic:** *List widget*, *iFrame*, *Dashboards* component, environment vs configuration dashboards.
 
+
+## Clicking a figure to open its records (script guidance)
+
+Whether clicking a Metric or a Chart opens the records behind the figure depends on the widget and the version.
+*(Unverified on 8.3 — check on the stand.)* In the script:
+- keep the source's step ("click the figure, confirm the list matches") when the source asks for it, and mark the
+  drill-down as **to verify** in `questions` with the fallback as the default;
+- **fallback**: next to each metric, a List widget, or a folder in the section, with the same filter, so the
+  presenter opens the matching records in one move. Name it after the metric.
+Record the choice in `decisions`; never drop the check from the flow.
+
 ## Sources
 
 - https://academy.creatio.com/docs/8.x/no-code-customization/customization-tools/ui-and-business-logic-customization/analytics/set-up-dashboards
