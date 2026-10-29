@@ -1,6 +1,6 @@
 {
   "name": "creatio-demo-scriptwriter",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Write Creatio demo scripts from customer input: discovery-call analysis, industry, competitive (internal) and past-demo research, proposed additions, the Demo Script in the SE team's template, a separate Build Specification, and import-ready demo data. Standalone — independent of the Creatio Demo Toolkit.",
   "author": {
     "name": "Vitaliia Kovalenko",

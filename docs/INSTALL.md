@@ -51,8 +51,9 @@ in the suggestions. That's it.
 
    A clear request for a demo script starts the agent on its own; the command just guarantees it.
 3. Paste the discovery-call transcript and attach the customer's documents (or give the folder path).
-4. Answer the few questions it asks (the **deal ARR** is always one of them). After the research it asks once more:
-   which of its new ideas to build into the use cases.
+4. Answer the few questions it asks (the **deal ARR** is always one of them). After the research it shows a
+   **demo story and suggested click path**: give feedback until it reads right, pick the new ideas you want, and
+   approve. Only then does it write the files.
 5. Wait 20–30 minutes. The result lands in a `<Customer>_demo_script` folder in your working folder.
 6. Revise in the same chat in plain words — no command needed: *"accept PA1 and PA3, reject PA2"*,
    *"UC2 step 4 — a button, not a list"*.

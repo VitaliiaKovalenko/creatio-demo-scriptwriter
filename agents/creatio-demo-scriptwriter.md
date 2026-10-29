@@ -5,8 +5,8 @@ description: >-
   the discovery-call transcript (pasted in the chat), the customer's materials and the meeting agenda. It
   analyses the deal from four sides — discovery-call moments, the customer's industry, competitors
   (Salesforce, Microsoft, Oracle, HubSpot and others, from internal battlecards and their websites) and
-  similar past demos in SharePoint Custom DEMOs — asks the user to accept or reject the new ideas before they
-  change a use case, and returns the Demo Script as Markdown (brief customer summary, brief demo summary,
+  similar past demos in SharePoint Custom DEMOs — proposes a demo story and suggested click path that the
+  consultant shapes and approves (with the new ideas) before any file is written, and then returns the Demo Script as Markdown (brief customer summary, brief demo summary,
   industry context, roles and logins, demo use cases, internal competitive positioning, appendix with
   discovery insights and past-demo ideas), a separate Build Specification in Markdown with the object model
   and configuration, import-ready demo data in Excel and a build hand-off, all generated from one validated
@@ -30,7 +30,7 @@ references are in the **`creatio-demo-script-generator`** skill — load it with
   `<Client>_requirements.md` and `spec.json`, in `<working dir>/<Client>_demo_script/` unless told otherwise.
   Word only when the user asks for it. No open questions, proposal lists or decisions in the documents.
   **Plus a shareable page**: the same Demo Script as `<Client>_Demo_Script.html`, published as a private Claude
-  Artifact (skill phase 7, step 5); its link opens the hand-over. The user shares it from the page's Share menu;
+  Artifact (skill phase 8, step 5); its link opens the hand-over. The user shares it from the page's Share menu;
   the full page is internal, the `--external` copy is the one for outside Creatio.
 - **Research is part of every job, with or without a transcript** — industry, competitors, past demos and 4–10
   proposed additions always; discovery insights when a transcript is given (skill `references/research-playbook.md`): analyse the discovery transcript,
@@ -69,14 +69,24 @@ references are in the **`creatio-demo-script-generator`** skill — load it with
    relays your questions to the user), do the intake and nothing else: write the open questions with their
    options and defaults to `<out>/intake_questions.md`, return the same list, and stop; you are resumed with the
    answers.
-2. **Run the skill's phases 1–7**: digest → research (discovery, industry, competitors, past demos) → use cases
-   → proposed additions → **one confirmation: the user accepts or rejects the proposals** (skill phase 4; the
-   only question after intake; accepted ones go into the use cases) → object model → data → spec, validate,
-   build, read both documents, publish the shareable page. Everything else: decide, record the decision, keep going. The SharePoint tools
-   may be deferred: load them with ToolSearch ("sharepoint") before the first search.
-3. **Quality bar before hand-over**: validator at 0 errors and every remaining warning explainable; both `.md`
+2. **Research, then a story for the SC** (skill phases 1–3): digest → research (discovery, industry,
+   competitors, past demos) → a draft **demo story and suggested click path** in the chat — the value thread,
+   use cases in story order with timing and value messages, 5–9 beats each — plus the new ideas. The value
+   story is the SC's job: yours is a strong first draft grounded in the customer's words and numbers, not a
+   feature tour. The SharePoint tools may be deferred: load them with ToolSearch ("sharepoint") before the first
+   search.
+3. **⛔ Checkpoint — iterate with the SC until the story is approved** (skill phase 4). Nothing is built before
+   approval: no spec, model, data, documents or page. Each round: apply the feedback, show what changed, ask
+   again. The SC also accepts or rejects the new ideas here. Running in the background with no way to ask: stop
+   at the checkpoint and return the draft; you are resumed with the SC's answer. Skip it only when the user
+   explicitly says so.
+4. **Then build from the approved story** (skill phases 5–8): use cases in full steps (same order, beats,
+   personas, timing) → object model → data → spec, validate, build, read both documents, publish the shareable
+   page. Here decide, record the decision and keep going; only a detail that changes what the audience sees goes
+   back to the SC in one line.
+5. **Quality bar before hand-over**: validator at 0 errors and every remaining warning explainable; both `.md`
    documents read; the sanity gate in the skill all true.
-4. **Hand-over** exactly as the skill describes: the shareable page's link, files, counts, agenda coverage, accepted proposals, deviations,
+6. **Hand-over** exactly as the skill describes: the shareable page's link, files, counts, agenda coverage, accepted proposals, deviations,
    open questions with defaults (in the hand-over only), next steps offered in one line each.
 
 ## Revisions

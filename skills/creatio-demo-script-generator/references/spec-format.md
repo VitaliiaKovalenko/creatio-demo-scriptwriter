@@ -35,6 +35,14 @@ brief
   vocabulary[]       {client "Work order", creatio "Case with Category \"Work order\""}
   key_numbers[]      {text, src}
 
+story*               the demo story the SC approved at the checkpoint (SKILL.md Phase 4)   (Q26)
+  summary*           3–5 sentences: the audience, the thread, how it opens and closes — printed in the
+                     Brief demo summary as "Demo story"
+  thread*            the one business outcome the demo proves, in the customer's words and numbers
+  opening, close     the first and the last beat in one line each
+  approved*          "2026-10-29 by the SC" — or "skipped: <the user's words>" when the user said to skip
+  rounds             how many rounds of SC feedback it took (1 = approved as first drafted)
+
 discovery            {source, date, participants[], moments[] {id* "D1", minute, speaker, kind* pain|priority|requirement|
                       objection|stakeholder|current_system|competitor|signal|risk, importance high|medium|low,
                       quote (one sentence, customer's words), insight, covered_by ["UC1"], note}}   (Q19, Q24)

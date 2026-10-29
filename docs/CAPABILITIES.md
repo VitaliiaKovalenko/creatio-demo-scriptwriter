@@ -36,7 +36,9 @@ Anything it could not research (no transcript, SharePoint not connected) is list
 
 A ranked list of extra functionality or story improvements, each with **why**, its **sources** (the transcript minute,
 industry point, competitor point, past demo or customer document), **what the audience would see**, **where it fits**
-and the **effort**. The agent asks you once, after the research, which ideas you accept. Accepted ideas are written
+and the **effort**. You decide on them at the story checkpoint: after the research the agent proposes a demo
+story and a suggested click path (value thread, use cases with timing, 5–9 beats each), you shape it over as many
+rounds as you need, and it writes the files only after you approve. You also pick which ideas to accept. Accepted ideas are written
 into the use cases; rejected ones are dropped; the documents never carry a separate list of ideas. A background run
 cannot ask, so it lists them in its report for you to answer: *"accept PA1 and PA3, reject PA2"*.
 

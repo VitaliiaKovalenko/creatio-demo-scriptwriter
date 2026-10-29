@@ -46,8 +46,11 @@ Only what your inputs do not already answer — at most six questions, in one or
 Everything else (who attends, competitors, language, data volume, prefix, demo login…) is decided from the inputs
 and the tier.
 
-After the research it asks **once more**: which of its new ideas (proposed additions) you accept. Accepted ideas
-are written into the use cases; rejected ones are dropped. The documents never list ideas you have not accepted.
+**Then a checkpoint, before any file is written.** After the research the agent proposes a **demo story and a
+suggested click path**: the value thread, the use cases in story order with timing and value messages, and 5–9
+beats per use case, plus its new ideas (proposed additions). You give feedback, it revises, and you iterate until
+you approve. Only then does it write the files, following the story you approved. Accepted ideas go into the use
+cases; rejected ones are dropped.
 
 Every script is checked against 25 quality rules taken from the SE team's feedback on real scripts (instance
 named, roles with login modes, every automation real/simulated/talking point, AI with trigger/input/output,

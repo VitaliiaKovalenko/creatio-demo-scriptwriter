@@ -3,6 +3,30 @@
 Condensed from `creatio-demo-runbook` (generation 2) and `creatio-doc1-demo-flow`, adapted to customer input
 (agenda + materials) instead of a consultant's draft script.
 
+## Story first — the demo is a story, not a function tour
+
+SC feedback (2026-10-28): going straight from intake to finished files gave click paths that "felt jagged and
+didn't really address the customer's needs — a function-heavy flow, not a demo story grounded in value", and took
+5–6 rounds of rework. So the story is drafted and approved (SKILL.md Phases 3–4) before any step is written.
+
+- **One thread.** Name the one business outcome the whole demo proves, in the customer's words and numbers
+  ("every closure inside the two-day CMF deadline, provable any day"). Every use case moves that thread forward;
+  a use case that does not is cut or merged.
+- **Open with their pain, close with their outcome.** The first beat is the problem this audience feels (a quote
+  or a number from the call); the last beat makes the outcome visible (a figure, a closed case, a happy client).
+- **One hero, one journey per use case.** Follow one record and one persona through the flow; switch persona
+  only at a real hand-off, and say why the hand-off matters.
+- **Every beat earns its place.** A beat answers a pain, proves a goal or sets up the next beat. A screen that
+  only shows that a field exists is not a beat — fold it into the next beat or drop it.
+- **Show, then name the value.** The beat shows the moment (*"the debt appears on the case with one click"*);
+  the value message says what it is worth to them (*"10–15 minutes saved per case, no copy errors"*).
+- **One "aha" per use case.** The moment this audience will remember; put it where the energy is, usually the
+  middle of the use case, and protect it from clutter.
+- **Fit the clock.** Minutes per use case add up to the demo length with room for talk and questions; the
+  person who leaves early sees the value before they go.
+- **Beats before steps.** At the checkpoint, a beat is one line of what the audience sees and why it matters.
+  Field names, captions and click mechanics come only after the SC approves the story.
+
 ## From agenda to use cases
 
 1. List the agenda items verbatim (A1, A2…). Mark each: **demo-able** (a flow in Creatio), **talk** (slides,

@@ -501,6 +501,16 @@ def research(spec, E, W):
             W(f"Q24 discovery {m.get('id')} ({m.get('kind')}): high importance, covered by no use case and no proposal — "
               "propose something, or add a note why not")
 
+    # Q26 — the SC approved the demo story at the checkpoint before anything was built (SC feedback 2026-10-28:
+    # straight-to-files runs gave function tours that took 5–6 rounds of rework)
+    story = spec.get("story") or {}
+    for f in ("summary", "thread", "approved"):
+        if not story.get(f):
+            E(f"Q26 story.{f} missing — draft the demo story and click path, get the SC's approval at the checkpoint "
+              "(SKILL.md Phases 3–4), then build")
+    if str(story.get("approved", "")).lower().startswith("skipped") and len(story["approved"]) < 12:
+        E("Q26 story.approved: 'skipped' needs the user's own words — skip only when the user said so")
+
 
 def main():
     import json

@@ -122,6 +122,14 @@
   "demo_goal": "Brightline loses SLA penalties because requests get lost between phone, email and dispatchers. At the end the audience sees one portal request become a closed work order without a phone call, and the manager spotting the outlier site on Monday before the penalty invoice arrives.",
   "focus": "Brightline's full process runs from contract setup to invoicing. The demo covers intake, dispatch, field resolution and SLA monitoring; contract setup and ERP invoicing stay out (see Out of scope)."
  },
+ "story": {
+  "summary": "Brightline's operations lead and the account managers who pay the SLA penalties are in the room. The demo follows one tenant request from the portal to a closed work order without a phone call, then shows the manager spotting the outlier site on Monday, before the penalty invoice arrives.",
+  "thread": "No request lost between phone, email and dispatchers, so no SLA penalty that nobody saw coming",
+  "opening": "Last quarter's penalty invoice, and the tenant who called three times about the same leak",
+  "close": "The Monday review shows the one site at risk while there is still time to act",
+  "approved": "2026-10-29 by the SC (sample)",
+  "rounds": 2
+ },
  "use_cases": [
   {
    "id": "UC1",

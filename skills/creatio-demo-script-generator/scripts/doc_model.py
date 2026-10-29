@@ -146,6 +146,7 @@ def _script(spec, B, add, meta, brief, model, client, ucs, roles, data, objects,
         o = objects.get(b["object"], {})
         heroes += [f"{label(b['object'], r)} ({o.get('caption') or b['object']})" for r in b.get("records", []) if r.get("_main")]
     add(("kv", [[k, v] for k, v in [
+        ("Demo story", (spec.get("story") or {}).get("summary", "")),
         ("What the demo covers", brief.get("focus", "")),
         ("Reference demo", inst.get("reference_demo", "")),
         ("Key sections", " · ".join(o["section"] for o in model.get("objects", []) if o.get("section"))),

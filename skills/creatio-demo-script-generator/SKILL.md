@@ -56,7 +56,7 @@ pages; the **Microsoft 365 tools** `sharepoint_search` and `read_resource` (load
 DEMOs** and the internal battlecards listed in the playbook. If a tool is unavailable, say so in the hand-over and
 continue with what you have; never invent a source.
 
-## Phase 0 — Intake (the only conversation)
+## Phase 0 — Intake (questions only where the inputs are silent)
 
 Collect the inputs; the consultant may give them in one message as paths, pasted text, or a folder:
 
@@ -142,11 +142,59 @@ named in `research_gaps` (e.g. "No discovery transcript was given") — otherwis
 4. **Similar past demos (internal)** — search SharePoint Custom DEMOs for the industry, use cases and products;
    read the 2–4 most relevant scripts; record what to reuse and lessons (PD1…). Ideas only — no names or data.
 
-## Phase 3 — Use cases
+## Phase 3 — Demo story and click path: a draft for the SC (no files yet)
 
-Read `references/use-case-writing.md`. In short:
+The value story is the SC's job; your job is a strong first draft they can shape. Read
+`references/use-case-writing.md` §"Story first" and write, **in the chat, not as a file**:
 
-- **The agreed use cases** come from the consultant's prompt and the agenda. Every agenda item is covered or
+1. **The story** — 4–6 lines: who is in the room and what they care about (from the transcript, agenda and
+   prompt); the one business outcome the whole demo proves (the thread, in the customer's words and numbers); how
+   it opens (the pain or the number that hooks this audience); how it closes (the outcome made visible).
+2. **The use cases in story order** — per use case: name, persona, the minutes it takes (the total fits
+   `meta.duration_min` with room for talk), its purpose in one sentence, its value message ("Instead of …, …,
+   which means …"), and the pains / discovery moments it answers.
+3. **The suggested click path** — per use case, 5–9 **beats**, each one line: what the audience sees and why it
+   matters to them (*"Juan opens the case: the AI already read the account number — no retyping, no wrong
+   numbers"*). Beats, not field-level steps: the detailed steps are written only after approval.
+4. **New ideas** — the proposed additions (Phase 3a), each one line with where it would change the story.
+5. **What you assumed** — at most 5 lines, only where the draft would change with a different answer.
+
+### Phase 3a — Proposed additions (research-playbook §5)
+
+**Always** `proposed_additions` (PA1…), transcript or not — **as many and as big as the deal tier allows**: OOTB
+4–6 quick stock-only wins (effort S); Medium 4–8 (S/M); High 6–10 (any effort, differentiators); Extremely high
+8–12 including at least one re-designed flow. Each: title, kind (feature / story / differentiator /
+risk), why, **sources** (D/IND/CMP/PD findings, or the customer's own P/G/A/S — pains, goals, agenda items, source
+files), the **demo moment** written like a beat, where it fits, effort S/M/L, priority, status `proposed`. At least
+one draws on the industry or the competition. Every high-importance discovery moment no use case covers gets a
+proposal or a note why not. They are decided at the checkpoint, never written into the story before.
+
+## Phase 4 — Checkpoint: the SC shapes the story (repeat until approved)
+
+**Stop here. Nothing is built until the SC approves the story** — no spec, no model, no data, no documents, no
+page. (Working files from Phases 1–2 — `sources.md`, `discovery_transcript.txt` — are fine.)
+
+1. Show the Phase 3 draft. Then ask in **one** `AskUserQuestion` form: the new ideas to accept (multiSelect, up
+   to 4 per question, grouped if more), and the story itself — `Approve — write the files` · `Change it — I'll
+   tell you what`. Invite free-text feedback on any beat, use case, order or timing.
+2. **Each round**: apply the feedback to the draft, show the changed parts in full and the rest as a one-line
+   reminder, and ask again. Keep going as long as the SC wants; the SC owns the story, you own the craft (value
+   thread, customer words and numbers, beats that show rather than tell, timing that fits).
+3. **Approved** → record `story` in the spec (summary, thread, opening, close, `approved` = "<date> by the SC",
+   `rounds`) and the idea decisions: accepted ideas get `status: accepted` and go into the use cases with
+   `covered_by`; rejected ones `status: rejected`. Only accepted ideas enter the use cases, model and data. The
+   documents never list proposals.
+4. **No way to ask** (background subagent, or the brief says so): stop after showing the draft — return the story,
+   the use cases with their beats and the ideas, and wait to be resumed with the SC's answer. Only when the user
+   explicitly says to skip the checkpoint, set `story.approved` = "skipped: <their words>" and continue with the
+   ideas left `proposed` and out of the use cases.
+
+## Phase 5 — Use cases (from the approved story)
+
+Read `references/use-case-writing.md`. Turn every approved beat into steps; never add a beat the SC did not
+approve, and keep the order, the personas and the timing. In short:
+
+- **The agreed use cases** come from the approved story, the consultant's prompt and the agenda. Every agenda item is covered or
   has a note; every use case names its agenda items and pains; every pain is answered.
 - **Use the research inside them** without widening scope: the best discovery quote goes into the opening
   bubble, industry vocabulary into the steps, a competitive demo highlight into the value message or a step
@@ -158,24 +206,10 @@ Read `references/use-case-writing.md`. In short:
 - **Demo moments, not business requirements**; one implementation per requirement; non-live rules simulated
   and say how; overlapping use cases consolidated. Product truth from `references/capsule/` (mobile: file 09).
 - **Resolve, do not report**: decisions go to `decisions`; genuine choices to `questions` with a default.
+- **A detail the approved story did not settle** and that changes what the audience sees (a different screen, a
+  dropped beat): ask the SC in one line before writing it, never decide it silently.
 
-## Phase 4 — Proposed additions (research-playbook §5)
-
-**Always** `proposed_additions` (PA1…), transcript or not — **as many and as big as the deal tier allows**: OOTB
-4–6 quick stock-only wins (effort S); Medium 4–8 (S/M); High 6–10 (any effort, differentiators); Extremely high
-8–12 including at least one re-designed flow. Each: title, kind (feature / story / differentiator /
-risk), why, **sources** (D/IND/CMP/PD findings, or the customer's own P/G/A/S — pains, goals, agenda items, source
-files), the **demo moment** written like a step, where it fits, effort S/M/L, priority, status `proposed`. At least
-one draws on the industry or the competition. Every high-importance discovery moment no use case covers gets a proposal or a note why not.
-**Ask before an idea changes a use case.** Once the proposals are ranked — before Phase 5 — show them to the user
-in **one** `AskUserQuestion` form (multiSelect, up to 4 per question; group them if there are more): title, the
-demo moment in one line, effort. Accepted → `status: accepted`, write them into the use cases now (new steps take
-the next free number) and list the steps in `covered_by`; rejected → `status: rejected`. Only accepted ideas enter
-the use cases, model and data. The documents never list proposals. Running in the background with no way to ask
-(or the brief says not to ask): leave them `proposed`, keep them out of the use cases, and put them first in the
-hand-over for the user to decide.
-
-## Phase 5 — Object model (goes to the Build Specification)
+## Phase 6 — Object model (goes to the Build Specification)
 
 Read `references/object-model-rules.md`. Model whatever the agreed use cases need — the deal tier does not limit
 the configuration. In short: **OOTB first, checked** with `ootb_lookup.py find / object / values`; status existing / extended / new; new objects carry `why_not_ootb` and a `depth`; every column the steps
@@ -185,7 +219,7 @@ dashboards, not objects; every automation has `realization` + `audience_sees`; A
 contract (trigger, inputs, output, stored_in, review, example_output); clocks in `slas`, messages in
 `notifications`, customer systems in `integrations`; the **Run before demo** process and `pre_demo` state.
 
-## Phase 6 — Demo data
+## Phase 7 — Demo data
 
 Read `references/demo-data-rules.md`. Volume follows the story, not the deal tier (the tier sizes only the proposed additions): Showcase by default,
 Rich when the customer's story is about volume.
@@ -195,7 +229,7 @@ the steps letter for letter and sit in their opening state; enough history for e
 large datasets with a seeded script and compute the step numbers from it); `stand_records` for records the
 stand already has.
 
-## Phase 7 — Write, validate, build, look
+## Phase 8 — Write, validate, build, look
 
 1. Write `<out>/spec.json` — format in `references/spec-format.md`, worked example in
    `references/sample-spec.json` (copy its shape; its research blocks are illustrative).
@@ -216,6 +250,7 @@ stand already has.
    separate page. No `Artifact` tool: skip this step and say in the hand-over that the `.html` file can be
    opened in any browser or attached as is.
 6. Sanity gate — every item true:
+   - the use cases follow the story the SC approved — same order, beats, personas and timing;
    - agenda covered or noted; every use case answers a pain; every pain answered;
    - validator 0 errors; no unexplained "bold step terms with no home";
    - every number on screen recounted from the data;
